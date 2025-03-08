@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">cs4048-group_007</string>
+    <string name="team_member_oliver">Oliver Fitzgerald</string>
+    <string name="team_member_ben">Benjamin Burt</string>
+    <string name="team_member_Jing">Jing Peng</string>
+    <string name="team_member_conor">Conor Gray</string>
+    <string name="rollercoaster_popup_title">Loop Rollercoaster</string>
+    <string name="rollercoaster_popup_description">Filler Text Roller Coaster Fun</string>
+    <string name="wait_popup_component_title">Wait time</string>
+    <string name="description_popup_component_title">Description</string>
+</resources>
