@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity"
+    android:id="@+id/map">
+
+    <HorizontalScrollView
+        android:id="@+id/base_image_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <com.college.cs4048_group_007.pathing.POI
+                android:id="@+id/map_background_image"
+                android:src="@drawable/base_map"
+                android:contentDescription="Image of map all other POI's are overlayed on"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constrainedHeight="@+id/map_background_image"
+                app:layout_constrainedWidth="@+id/map_background_image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+                <!-- Merry Go Round-->
+                <com.college.cs4048_group_007.pathing.POI
+                    android:contentDescription="A merry go round"
+                    android:id="@+id/merry_go_round"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="200dp"
+                    android:layout_marginTop="200dp"
+                    android:src="@drawable/merry_go_round"/>
+                <!-- Some swing yolk-->
+                <com.college.cs4048_group_007.pathing.POI
+                    android:contentDescription="NOT a merry go round"
+                    android:id="@+id/some_swing_thing"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="500dp"
+                    android:layout_marginTop="300dp"
+                    android:src="@drawable/country_roads_take_me_home_to_the_place_i_belong_"/>
+
+                <!-- Popup container positioned absolutely within the FrameLayout -->
+                <LinearLayout
+                    android:id="@+id/popup_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|start"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="187dp"
+                    tools:layout_editor_absoluteY="581dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

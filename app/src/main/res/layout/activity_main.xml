@@ -23,11 +23,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/myButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Touch"
+            android:text="I wonder what this does"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,14 +37,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Popup container positioned absolutely within the FrameLayout -->
-    <LinearLayout
-        android:id="@+id/popup_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="581dp" />
 
 </FrameLayout>

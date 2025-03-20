@@ -1,6 +1,7 @@
 package com.college.cs4048_group_007;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.college.cs4048_group_007.popup.DescriptionPopupComponent;
 import com.college.cs4048_group_007.popup.Popup;
 import com.college.cs4048_group_007.popup.WaitInfoPopupComponent;
+import com.google.android.material.button.MaterialButton;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -58,61 +60,11 @@ public class MainActivity extends AppCompatActivity {
         TextView centerTextView = findViewById(R.id.centerTextView) ;
         centerTextView.setText(teamMemberNames);
 
-        Button myButton = findViewById(R.id.myButton);
-
-        //This is how you would add a popup to that button
-        //Assuming that we get data from db like
-        int lineLength = 32;
-        String description = "This great ride lets you ride the ride!";
-
-        //We can format the data like so.
-        //Maps might seem complicated but it helps if we have components
-        //with multiple inputs
-        Map<String, Object> wait_component_data = Map.of(
-                "lineLength", lineLength
-        );
-
-        Map<String, Object> description_component_data = Map.of(
-                "description", description
-        );
-
-        //Lastly we can combine these into the final object for the popup's update method
-        Map<String, Map<String, Object>> data = Map.of(
-                "wait-info", wait_component_data,
-                "description", description_component_data
-        );
-
-        Context context = this.getBaseContext();
-
-        //This is how we build the popup.
-        //We set the base layout of the component
-        //And then simply add components as needed
-        Popup popup = new Popup.Builder()
-                .init(context)
-                .setBase(R.layout.rollercoaster_base)
-                .addComponent(new DescriptionPopupComponent(context))
-                .addComponent(new WaitInfoPopupComponent(context))
-                .build();
-
-        popup.update(data);
+        MaterialButton myButton = findViewById(R.id.myButton);
 
         myButton.setOnClickListener(v -> {
-            LinearLayout popupContainer = findViewById(R.id.popup_container);
-
-            int[] location = new int[2];
-            myButton.getLocationInWindow(location);
-
-            popupContainer.setX(location[0] - 350);
-            popupContainer.setY(location[1] + myButton.getHeight());
-
-            View popupView = popup.getView();
-
-            if(popupView.getParent() != null)
-                ((ViewGroup) popupView.getParent()).removeView(popupView);
-
-            popupContainer.addView(popupView);
-
-            popupView.setVisibility(popupView.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
         });
 
     }
