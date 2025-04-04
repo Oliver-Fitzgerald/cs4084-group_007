@@ -10,7 +10,7 @@ import java.util.Date;
 public class Poi {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "poi_id")
-    public String poiId;
+    public int poiId;
 
     @ColumnInfo(name = "name")
     public String name;
@@ -26,4 +26,5 @@ public class Poi {
 
     @ColumnInfo(name = "type")
     public String type;
+
 }
