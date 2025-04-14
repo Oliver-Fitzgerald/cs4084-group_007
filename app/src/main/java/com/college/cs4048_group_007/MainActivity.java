@@ -1,15 +1,7 @@
 package com.college.cs4048_group_007;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,13 +10,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.college.cs4048_group_007.popup.DescriptionPopupComponent;
-import com.college.cs4048_group_007.popup.Popup;
-import com.college.cs4048_group_007.popup.WaitInfoPopupComponent;
 import com.google.android.material.button.MaterialButton;
 
 import java.lang.reflect.Field;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
