@@ -30,9 +30,11 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_constrainedHeight="@+id/map_background_image"
                 app:layout_constrainedWidth="@+id/map_background_image"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent">
 
@@ -69,9 +71,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|start"
+                    android:scrollbars="vertical"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:orientation="vertical"
-                    tools:layout_editor_absoluteX="187dp"
-                    tools:layout_editor_absoluteY="581dp" />
+                    android:layout_marginStart="187dp"
+                    android:layout_marginTop="581dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

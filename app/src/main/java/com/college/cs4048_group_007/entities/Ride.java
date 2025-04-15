@@ -31,4 +31,16 @@ public class Ride {
 
     @ColumnInfo(name = "rating")
     public String rating;
+
+    public Ride(String rating, int poiId, float height, float duration, float queueLength) {
+        this.rating = rating;
+        this.poiId = poiId;
+        this.height = height;
+        this.duration = duration;
+        this.queueLength = queueLength;
+    }
+
+    public Ride() {
+
+    }
 }

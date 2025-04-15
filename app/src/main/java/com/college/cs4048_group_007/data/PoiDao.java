@@ -25,10 +25,22 @@ public interface PoiDao {
     @Query("SELECT * FROM poi WHERE poi_id = :poiId")
     LiveData<Poi> getPoiById(int poiId);
 
+    @Query("SELECT description FROM poi WHERE name = :name")
+    LiveData<String> getDescriptionByName(String name);
+
+    @Query("SELECT description FROM poi WHERE name = :name")
+    String getDescriptionByNameSync(String name);
+
+    @Query("SELECT ride.ride_id, poi.poi_id, poi.name, poi.description, poi.open_time, poi.close_time, poi.type, ride.rating " +
+            "FROM poi inner join ride on poi.poi_id = ride.poi_id WHERE poi.poi_id = :poiId")
+    LiveData<RidePoi> getRidePoiById(int poiId);
     @Update
     int updatePoi(Poi poi);
 
     @Delete
     int deletePoi(Poi Poi);
+
+    @Query("DELETE FROM poi")
+    void deleteAllPoi();
 
 }
