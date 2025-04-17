@@ -1,88 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="wrap_content"
     tools:context=".MapActivity"
-    android:id="@+id/map">
+    android:id="@+id/scrollable_map_container">
 
-    <HorizontalScrollView
-        android:id="@+id/base_image_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="horizontal">
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="wrap_content"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/map"
+            android:layout_margin="0dp"
+            android:padding="0dp"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:src="@drawable/fantasy_island_map_background"/>
+
+
+        <FrameLayout
+            android:id="@+id/title_container"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.college.cs4048_group_007.pathing.POI
-                android:id="@+id/map_background_image"
-                android:src="@drawable/base_map"
-                android:contentDescription="Image of map all other POI's are overlayed on"
-                android:layout_width="wrap_content"
+                android:id="@+id/wave_pool_text"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:src="@drawable/wave_pool_title"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constrainedHeight="@+id/map_background_image"
-                app:layout_constrainedWidth="@+id/map_background_image"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent">
 
-                <!-- Merry Go Round-->
-                <com.college.cs4048_group_007.pathing.POI
-                    android:contentDescription="A merry go round"
-                    android:id="@+id/merry_go_round"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginTop="200dp"
-                    android:src="@drawable/merry_go_round"/>
-                <!-- Some swing yolk-->
-                <com.college.cs4048_group_007.pathing.POI
-                    android:contentDescription="NOT a merry go round"
-                    android:id="@+id/some_swing_thing"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="500dp"
-                    android:layout_marginTop="300dp"
-                    android:src="@drawable/country_roads_take_me_home_to_the_place_i_belong_"/>
+        </FrameLayout>
+    </FrameLayout>
 
-                <!-- Popup container positioned absolutely within the FrameLayout -->
-                <LinearLayout
-                    android:id="@+id/popup_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|start"
-                    android:scrollbars="vertical"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:orientation="vertical"
-                    android:layout_marginStart="187dp"
-                    android:layout_marginTop="581dp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </HorizontalScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</HorizontalScrollView>
