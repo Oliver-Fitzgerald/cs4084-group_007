@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@android:color/holo_blue_bright"
+    android:background="#f8f7f5"
     tools:context=".MainActivity">
 
     <!-- Description Label Text -->
@@ -13,12 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description_popup_component_title"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="13dp"
         android:layout_marginEnd="200dp"
+        android:textColor="@color/black"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:background="#FF0000"
+        android:textSize="12sp"
+        android:background="#f8f7f5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -29,9 +29,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textColor="@android:color/white"
-        android:background="#FDD000"
-        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:background="#f8f7f5"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptionLabel" />

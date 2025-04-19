@@ -46,6 +46,17 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    public static void insertTestData(AppDatabase db) {
+        if (db.poiDao().getPoiCount() == 0) {
+            Poi poi = new Poi("wave pool", "Take wave poll, have fun!", "9:00", "5:00", "entertainment");
+            db.poiDao().insert(poi);
+        }
+        if (db.rideDao().getRideCount() == 0) {
+            Ride ride = new Ride("5", 1, 20, 100, 30);
+            db.rideDao().insert(ride);
+        }
+    }
+
     public static void replaceDatabase(Context context, String sourcePath) {
         File dbFile = context.getDatabasePath("mobileDatabase.db");
         try (InputStream inputStream = new FileInputStream(sourcePath);

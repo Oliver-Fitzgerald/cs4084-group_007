@@ -39,6 +39,20 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/wave_pool_title"/>
 
+            <!-- Popup container positioned absolutely within the FrameLayout -->
+            <LinearLayout
+                android:id="@+id/popup_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:scrollbars="vertical"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="vertical"
+                android:layout_marginStart="187dp"
+                android:layout_marginTop="581dp" />
 
         </FrameLayout>
     </FrameLayout>

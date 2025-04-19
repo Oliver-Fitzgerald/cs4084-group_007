@@ -4,14 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatImageView;
-
-import com.college.cs4048_group_007.R;
+import androidx.room.ColumnInfo;
+import androidx.room.PrimaryKey;
 
 import java.util.HashMap;
 import java.util.Map;

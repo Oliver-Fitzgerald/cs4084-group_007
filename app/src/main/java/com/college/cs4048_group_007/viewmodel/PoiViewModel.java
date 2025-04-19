@@ -37,8 +37,8 @@ public class PoiViewModel extends ViewModel {
         return poiRepository.getPoiById(poiId);
     }
 
-    public LiveData<String> getDescriptionByName(String name) {
-        return poiRepository.getDescriptionByName(name);
+    public LiveData<Integer> getIdByName(String name) {
+        return poiRepository.getIdByName(name);
     }
 
     public LiveData<RidePoi> getRidePoiById(int poiId) {
