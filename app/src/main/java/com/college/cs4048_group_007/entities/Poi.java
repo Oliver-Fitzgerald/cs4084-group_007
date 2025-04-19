@@ -19,7 +19,7 @@ public class Poi {
     public String description;
 
     @ColumnInfo(name = "open_time")
-    public String openDate;
+    public String openTime;
 
     @ColumnInfo(name = "close_time")
     public String closeTime;
@@ -27,4 +27,15 @@ public class Poi {
     @ColumnInfo(name = "type")
     public String type;
 
+    public Poi() {
+
+    }
+
+    public Poi(String name, String description, String openTime, String closeTime, String type) {
+        this.name = name;
+        this.description = description;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.type = type;
+    }
 }

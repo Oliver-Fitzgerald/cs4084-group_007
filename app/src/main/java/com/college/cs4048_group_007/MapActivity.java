@@ -11,7 +11,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,13 +23,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.college.cs4048_group_007.data.AppDatabase;
+import com.college.cs4048_group_007.data.PoiRepository;
+import com.college.cs4048_group_007.data.RideRepository;
 import com.college.cs4048_group_007.pathing.POI;
+import com.college.cs4048_group_007.popup.ButtonPopupComponent;
+import com.college.cs4048_group_007.popup.DescriptionPopupComponent;
+import com.college.cs4048_group_007.popup.Popup;
+import com.college.cs4048_group_007.viewmodel.PoiViewModel;
+import com.college.cs4048_group_007.viewmodel.PoiViewModelFactory;
+import com.college.cs4048_group_007.viewmodel.RideViewModel;
+import com.college.cs4048_group_007.viewmodel.RideViewModelFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 public class MapActivity extends AppCompatActivity  {
 
@@ -56,6 +72,10 @@ public class MapActivity extends AppCompatActivity  {
             return insets;
         });
 
+        Executors.newSingleThreadExecutor().execute(() -> {
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+            AppDatabase.insertTestData(db);
+        });
 
     }
 
@@ -128,6 +148,10 @@ public class MapActivity extends AppCompatActivity  {
                         message = format("Click registered on POI %s(clicked X: %d, clicked Y: %d, POI width: %d, POI height: %d)",entry.getKey(),x,y,entry.getValue().getWidth(),entry.getValue().getHeight());
                         Log.d(MAP_ACTIVITY,message);
                         textOfPOI.clickPOI();
+                        // Click registered on POI wave_pool_test(clicked X: 231, clicked Y: 1798, POI width: 3079, POI height: 2177)
+                        // Show the popup
+                        getPopup(getApplicationContext(),x,y,entry.getKey());
+
                         return true;
                     } catch (NullPointerException exception) {
                         message = format("Error getting equivalent text POI for the clicked POI %s",entry.getKey());
@@ -184,5 +208,69 @@ public class MapActivity extends AppCompatActivity  {
             loadBitmapThreadMessage = format("Error reading image assets from assets/myImages\n%s",exception.getMessage());
             Log.e(MAP_ACTIVITY,loadBitmapThreadMessage);
         }
+    }
+
+
+
+    public void getPopup(Context context, int x, int y, String attractName) {
+        //This is how we build the popup.
+        //We set the base layout of the component
+        //And then simply add components as needed
+        context = this.getBaseContext();
+        Popup popup = new Popup.Builder()
+                .init(context)
+                .setBase(R.layout.rollercoaster_base)
+                .addComponent(new DescriptionPopupComponent(context))
+                .addComponent(new ButtonPopupComponent(context))
+                .build();
+
+        PoiRepository poiRepository = new PoiRepository(getApplication());
+        PoiViewModelFactory factory = new PoiViewModelFactory(poiRepository);
+        PoiViewModel poiViewModel = new ViewModelProvider(this, factory).get(PoiViewModel.class);
+
+        poiViewModel.getIdByName(attractName).observe(this, poiId -> {
+            if (poiId != null) {
+                // Log the ID to confirm data retrieval
+                android.util.Log.d("MapActivity1", "ID fetched: " + poiId);
+                poiViewModel.getRidePoiById(poiId).observe(this, ridePoi -> {
+
+                    if (ridePoi != null) {
+                        // Log the description to confirm data retrieval
+                        android.util.Log.d("MapActivity1", "Description fetched: " + ridePoi.name);
+
+                        String description = "Name: " + ridePoi.name + "\n" +
+                                "Description: " + ridePoi.description + "\n" +
+                                "Open & Close time: " + ridePoi.openTime + "am--" + ridePoi.closeTime + "pm\n" +
+                                "Rating: " + ridePoi.rating;
+                        android.util.Log.d("MapActivity2", "Description fetched: " + description);
+                        TextView popupTitle = findViewById(R.id.popup_title);
+                        popupTitle.setText(ridePoi.name);
+
+                        // Update the popup data dynamically
+                        Map<String, Object> descriptionComponentData = Map.of("description", description);
+
+                        Map<String, Map<String, Object>> data = Map.of(
+                                "description", descriptionComponentData
+                        );
+                        popup.update(data);
+                    }
+                });
+            }
+        });
+
+
+        LinearLayout popupContainer = findViewById(R.id.popup_container);
+
+        popupContainer.setX(x - 200);
+        popupContainer.setY(y - 200);
+
+        View popupView = popup.getView();
+
+        if(popupView.getParent() != null)
+            ((ViewGroup) popupView.getParent()).removeView(popupView);
+
+        popupContainer.addView(popupView);
+
+        popupView.setVisibility(View.VISIBLE);
     }
 }

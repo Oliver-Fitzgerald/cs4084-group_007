@@ -17,6 +17,9 @@ public interface RideDao {
     @Insert
     Long insert(Ride Ride);
 
+    @Query("SELECT COUNT(*) FROM ride")
+    int getRideCount();
+
     @Query("SELECT * FROM ride")
     LiveData<List<Ride>> getAllRide();
 

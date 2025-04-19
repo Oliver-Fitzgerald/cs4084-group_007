@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.college.cs4048_group_007.entities.Poi;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,9 +28,34 @@ public class PoiRepository {
         executor.execute(() -> poiDao.insert(poi));
     }
 
+    public void updatePoi(Poi poi) {
+        // Running update operation on a background thread
+        executor.execute(() -> poiDao.updatePoi(poi));
+    }
+
+    public void deletePoi(Poi poi) {
+        // Running delete operation on a background thread
+        executor.execute(() -> poiDao.deletePoi(poi));
+    }
+
+    public void deleteAllPoi() {
+        // Running delete operation on a background thread
+        executor.execute(poiDao::deleteAllPoi);
+    }
+
     public LiveData<Poi> getPoiById(int poiId) {
         // Room automatically runs it on a background thread because DAO returns LiveData<>
         return poiDao.getPoiById(poiId);
 
+    }
+
+    public LiveData<Integer> getIdByName(String name) {
+        // Room automatically runs it on a background thread because DAO returns LiveData<>
+        return poiDao.getIdByName(name);
+    }
+
+    public LiveData<RidePoi> getRidePoiById(int poiId) {
+        // Room automatically runs it on a background thread because DAO returns LiveData<>
+        return poiDao.getRidePoiById(poiId);
     }
 }

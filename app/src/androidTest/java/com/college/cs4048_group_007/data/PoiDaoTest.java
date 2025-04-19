@@ -58,9 +58,9 @@ public class PoiDaoTest {
     @Test
     public void insertPoiToDatabase() throws Exception {
         Poi poi = new Poi();
-        poi.name = "merry-go-round";
-        poi.description = "discription: merry-go-round";
-        poi.openDate = "9:00";
+        poi.name = "merry_go_round";
+        poi.description = "Take a whimsical spin on our classic Merry-Go-Round! With beautifully crafted horses and cheerful music, this timeless ride is perfect for guests of all ages looking for a gentle, magical experience. Hold on tight and enjoy the ride!";
+        poi.openTime = "9:00";
         poi.closeTime = "5:00";
         poi.type = "entertainment";
 
@@ -72,14 +72,17 @@ public class PoiDaoTest {
         List<Poi> poisList = LiveDataTestUtil.getValue(liveDataPois); // Utility function to get LiveData value
         // Verify that 1 poi has been inserted
         assertEquals(1, poisList.size());
-        assertEquals("merry-go-round", poisList.get(0).name);
+        assertEquals("merry_go_round", poisList.get(0).name);
     }
 
     @Test
     public void exportDatabase() throws IOException {
         File dbFile = InstrumentationRegistry.getInstrumentation().getTargetContext().getDatabasePath("mobileDatabase.db");
         File exportFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "exported_mobileDatabase.db");
-
+       // File exportFile = new File(
+         //       InstrumentationRegistry.getInstrumentation().getTargetContext().getExternalFilesDir(null),
+           //     "exported_mobileDatabase.db"
+        //);
 
         FileChannel src = new FileInputStream(dbFile).getChannel();
         FileChannel dst = new FileOutputStream(exportFile).getChannel();
