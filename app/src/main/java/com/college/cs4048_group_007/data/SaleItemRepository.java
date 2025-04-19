@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import com.college.cs4048_group_007.entities.SaleItem;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -27,5 +28,8 @@ public class SaleItemRepository {
     public LiveData<SaleItem> getSaleItemById(int productId) {
         // Room automatically runs it on a background thread because DAO returns LiveData<>
         return saleItemDao.getSaleItemById(productId);
+    }
+    public LiveData<List<SaleItem>> getAllSaleItem(){
+        return saleItemDao.getAllSaleItem();
     }
 }

@@ -8,4 +8,9 @@
     <string name="rollercoaster_popup_description">Filler Text Roller Coaster Fun</string>
     <string name="wait_popup_component_title">Wait time</string>
     <string name="description_popup_component_title">Description</string>
+    <string name="previous">previous</string>
+    <string name="lorem_ipsum">lorem_ipsum</string>
+    <string name="order">Order</string>
+    <string name="back">Back</string>
+    <string name="add_to_order">Add to Order</string>
 </resources>
