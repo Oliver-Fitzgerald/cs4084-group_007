@@ -4,10 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.college.cs4048_group_007.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +23,22 @@ import java.util.Map;
  * POI (Point Of Interest)
  * Represents an image in an activity. Provides functionality to support pathing through an inner class WeightedEdges.
  */
+@Entity(tableName = "poi")
 public class POI extends AppCompatImageView {
+
+    public int poiId;
+
+    @ColumnInfo(name = "name")
+    public String name;
+    @ColumnInfo(name = "description")
+    public String description;
+    @ColumnInfo(name = "open_time")
+    public String openDate;
+    @ColumnInfo(name = "close_time")
+    public String closeTime;
+    @ColumnInfo(name = "type")
+    public String type;
+
     private static boolean poiCurrentlyClicked = false;
     private static POI currentylSelectedPOI;
 
@@ -25,6 +47,7 @@ public class POI extends AppCompatImageView {
         //so onTouch events can only be triggered programmatically
         setFocusable(false);
         setClickable(false);
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
