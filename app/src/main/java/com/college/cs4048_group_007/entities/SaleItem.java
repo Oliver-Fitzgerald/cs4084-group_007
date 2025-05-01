@@ -30,4 +30,6 @@ public class SaleItem {
 
     @ColumnInfo(name = "description")
     public String description;
+    @ColumnInfo(name = "timer")
+    public int timer;
 }

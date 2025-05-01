@@ -6,4 +6,20 @@
     </style>
 
     <style name="Theme.Cs4048group_007" parent="Base.Theme.Cs4048group_007" />
+
+    <style name="Theme.Cs4048group_007.Main" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Optional: match colors or font styles to your base theme -->
+    </style>
+
+<!--    <style name="Base.Theme.Cs4048group_007" parent="Theme.Material3.DayNight">-->
+<!--        &lt;!&ndash; Turn ON the ActionBar &ndash;&gt;-->
+<!--        <item name="windowActionBar">true</item>-->
+<!--        <item name="windowNoTitle">false</item>-->
+
+<!--        &lt;!&ndash; (optional) your custom colors here &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="colorPrimary">@color/...</item> &ndash;&gt;-->
+<!--    </style>-->
+
+<!--    <style name="Theme.Cs4048group_007" parent="Base.Theme.Cs4048group_007" />-->
+
 </resources>
