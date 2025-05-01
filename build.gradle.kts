@@ -5,6 +5,7 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath("com.android.tools.build:gradle:7.4.0") // Update if necessary
+        classpath("com.android.tools.build:gradle:8.8.1") // Update if necessary
     }
+
 }

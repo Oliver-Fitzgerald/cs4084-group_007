@@ -31,6 +31,7 @@
             android:layout_height="match_parent">
 
             <com.college.cs4048_group_007.pathing.POI
+                poiID="wavePoolID"
                 android:id="@+id/wave_pool_text"
                 android:padding="0dp"
                 android:scaleType="fitCenter"

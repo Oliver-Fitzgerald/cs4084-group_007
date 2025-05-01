@@ -147,9 +147,8 @@ public class MapActivity extends AppCompatActivity  {
                     try {
                         message = format("Click registered on POI %s(clicked X: %d, clicked Y: %d, POI width: %d, POI height: %d)",entry.getKey(),x,y,entry.getValue().getWidth(),entry.getValue().getHeight());
                         Log.d(MAP_ACTIVITY,message);
+                        Toast.makeText(getApplicationContext(), "You clicked " + entry.getKey(), Toast.LENGTH_SHORT).show();
                         textOfPOI.clickPOI();
-                        // Click registered on POI wave_pool_test(clicked X: 231, clicked Y: 1798, POI width: 3079, POI height: 2177)
-                        // Show the popup
                         getPopup(getApplicationContext(),x,y,entry.getKey());
 
                         return true;
