@@ -2,6 +2,7 @@ package com.college.cs4048_group_007;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -51,9 +52,16 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton myButton = findViewById(R.id.myButton);
 
         myButton.setOnClickListener(v -> {
+            //Intent intent = new Intent(this, MapActivity.class);
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
         });
+        Button shopButton = findViewById(R.id.btnOpenShop);
+        shopButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ShopActivity.class);
+            startActivity(intent);
+        });
+
 
     }
 }
