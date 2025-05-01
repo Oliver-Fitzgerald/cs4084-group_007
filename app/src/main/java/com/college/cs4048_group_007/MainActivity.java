@@ -2,15 +2,20 @@ package com.college.cs4048_group_007;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
 import java.lang.reflect.Field;
@@ -52,16 +57,46 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton myButton = findViewById(R.id.myButton);
 
         myButton.setOnClickListener(v -> {
-            //Intent intent = new Intent(this, MapActivity.class);
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
         });
-        Button shopButton = findViewById(R.id.btnOpenShop);
-        shopButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ShopActivity.class);
-            startActivity(intent);
-        });
-
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_help) {
+            showHelpSheet();
+            return true;
+        }
+        if (item.getItemId() == R.id.menu_stats) {
+            showDailyStats();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showHelpSheet() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View sheetView = LayoutInflater.from(this)
+                .inflate(R.layout.help_sheet_layout, null);
+        bottomSheetDialog.setContentView(sheetView);
+        bottomSheetDialog.show();
+    }
+
+    private void showDailyStats() {
+        int visitedCount = VisitedTracker.getVisitedCount(this);
+        BottomSheetDialog sheet = new BottomSheetDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.daily_stats_layout, null);
+        TextView statText = view.findViewById(R.id.stat_text);
+        statText.setText("You've visited " + visitedCount + " attractions today!");
+        sheet.setContentView(view);
+        sheet.show();
+    }
+
 }
