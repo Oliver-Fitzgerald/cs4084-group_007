@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.college.cs4048_group_007"
-        minSdk = 24
+        minSdk = 31
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -17,9 +17,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            isDebuggable = true
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -32,10 +29,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

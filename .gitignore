@@ -41,3 +41,12 @@ gradle-wrapper.properties
 # Temporary or cache files
 .idea/caches
 
+
+# Ignore Gradle build output directory
+build
+
+.idea/deploymentTargetSelector.xml
+.idea/gradle.xml
+app/build.gradle.kts
+app/src/main/AndroidManifest.xml
+gradle/libs.versions.toml
