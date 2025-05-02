@@ -66,10 +66,9 @@ public class ShopActivity extends AppCompatActivity {
         Transactiondb = new TransactionRepository(getApplication());
         itemsDb = new SaleItemRepository(getApplication());
         this.poiDb = new PoiRepository(getApplication());
-        Executors.newSingleThreadExecutor().execute(() -> {
+        /*Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            AppDatabase.insertTestData(db);
-        });
+        });*/
         //rideOrShop();
         back();
         getProductIds(id);

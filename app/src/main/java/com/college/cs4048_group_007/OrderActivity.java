@@ -49,7 +49,7 @@ public class OrderActivity extends AppCompatActivity {
         });
         back();
         Log.i("test", "Order opens fine");
-        getProductIds();
+//        getProductIds();
     }
     void back(){
         Button back = findViewById(R.id.back);
