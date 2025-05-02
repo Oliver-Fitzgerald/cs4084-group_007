@@ -111,6 +111,9 @@ public class MapActivity extends AppCompatActivity {
         mapPOIs = LoadingMap.mapPOIs;
 
         this.loadGraphAndPathFinder(getApplicationContext());
+
+
+
     }
 
     final boolean[] popUpActive = {false};

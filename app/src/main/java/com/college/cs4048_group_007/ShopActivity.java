@@ -91,15 +91,14 @@ public class ShopActivity extends AppCompatActivity {
 
     void setupShopActivity(){
 
-        int poiId = getIntent().getIntExtra("poi_id", 1);
+        int poiId = getIntent().getIntExtra("poi_id", -1);
         Log.i("Test", "OPEN SHOP ACT");
-        Log.i("Test", "POI ID : " + String.valueOf(poiId));
-        if (poiId != 1) {
-            Log.i("Test", "POI ID : " + String.valueOf(id));
+        Log.i("Test", "POI ID 0: " + String.valueOf(poiId));
+        if (poiId != -1) {
             this.id = poiId;
-            Log.i("Test", "POI ID : " + String.valueOf(id));
+            Log.i("Test", "POI ID 1 : " + String.valueOf(id));
         } else {
-            this.id = 1;
+            Log.e("ShopActivity","Error with Id");
         }
         Transactiondb = new TransactionRepository(getApplication());
         itemsDb = new SaleItemRepository(getApplication());
@@ -124,6 +123,12 @@ public class ShopActivity extends AppCompatActivity {
         cancel.setOnClickListener(v ->{
 
             orderCancel();
+        });
+
+        Button orderButton = findViewById(R.id.btnOpenOrder);
+        orderButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, OrderActivity.class);
+            startActivity(intent);
         });
     }
     void resetAct(){
@@ -160,22 +165,25 @@ public class ShopActivity extends AppCompatActivity {
                     // the sale item id
                     int idSaleItem = saleItemsList.get(i).productId;
                     int poiIdSaleItem = saleItemsList.get(i).poiId;
-
+                    Log.i("Test", "POI " + String.valueOf(poiIdSaleItem));
+                    Log.i("Test", "Sale Item " + String.valueOf(idSaleItem));
                     if(poiIdSaleItem == id){
-
+                        Log.i("Test", "Sale Item actually added" + String.valueOf(idSaleItem));
                         // adds it of it has the same poi is the same
                         productIds.add(idSaleItem);
                     }
                 }
                 for (int i = 0; i < productIds.size(); i++) {
-
+                    Log.i("Test", "ProductsSize " + String.valueOf(productIds.size()));
                     for(int j = 0; j < items.size(); j++){
 
-
-                        if(items.get(j).productId == i+1){
-
+                        Log.i("Test", "productIds" + String.valueOf(items.get(j).productId));
+                        Log.i("Test", "I value" + String.valueOf(i));
+                        Log.i("Test", "other value" + String.valueOf(productIds.get(i)));
+                        if(items.get(j).productId == productIds.get(i)){
+                            Log.i("Test", "productIds actually checked" + String.valueOf(items.get(j).productId));
                             name = items.get(j).name;
-                            createButtons(name,items.get(i).description, i+1);
+                            createButtons(name,items.get(j).description, items.get(j).productId, items.get(j).timer);
                         }
                     }
                 }
@@ -202,7 +210,7 @@ public class ShopActivity extends AppCompatActivity {
     }
 
 
-    void createButtons(String name,String desc, int productId) {
+    void createButtons(String name,String desc, int productId, long timer) {
             new Thread(() -> {
                 try {
                     Thread.sleep(1000);
@@ -232,7 +240,7 @@ public class ShopActivity extends AppCompatActivity {
                     buttonIds.add(thisId);
                     button.setText("Add to Order");
 
-                    button.setOnClickListener(v -> addToOrder(name, productId, thisId));
+                    button.setOnClickListener(v -> addToOrder(name, productId, thisId, timer));
 
                     layout.addView(textView);
                     layout.addView(textView2);
@@ -290,7 +298,7 @@ public class ShopActivity extends AppCompatActivity {
         }
 
 
-    void addToOrder(String name, int productId, int thisId){
+    void addToOrder(String name, int productId, int thisId, Long timer){
 
 
 
@@ -313,7 +321,11 @@ public class ShopActivity extends AppCompatActivity {
                 order.setEnabled(true);
                 order.setVisibility(View.VISIBLE);
                 Toast.makeText(this, name+"added to Order", Toast.LENGTH_SHORT).show();
-                this.transaction = new Transaction(productId,"Ready for Pickup");
+                if(timer == 0) {
+                    this.transaction = new Transaction(productId, "Ready for Pickup");
+                }else{
+                    this.transaction = new Transaction(productId, "Preparing");
+                }
                 Button cancel = findViewById(R.id.cancel);
                 cancel.setEnabled(true);
                 cancel.setVisibility(View.VISIBLE);
