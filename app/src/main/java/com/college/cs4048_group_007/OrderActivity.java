@@ -29,8 +29,8 @@ import java.util.concurrent.Executors;
 
 public class OrderActivity extends AppCompatActivity {
     TransactionRepository Transactiondb;
-    SaleItemRepository itemsDb;
-    PoiRepository poiDb;
+    SaleItemRepository itemsDb = new SaleItemRepository(getApplication());
+    PoiRepository poiDb = new PoiRepository(getApplication());
     List<Transaction> items = new ArrayList<>();
 
     @Override
@@ -47,9 +47,10 @@ public class OrderActivity extends AppCompatActivity {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             AppDatabase.insertTestData(db);
         });
+        Transactiondb = new TransactionRepository(getApplication());
         back();
         Log.i("test", "Order opens fine");
-//        getProductIds();
+        getProductIds();
     }
     void back(){
         Button back = findViewById(R.id.back);
@@ -73,7 +74,7 @@ public class OrderActivity extends AppCompatActivity {
         Log.i("Test", test2);*/
         ArrayList<Integer> productIds = new ArrayList<Integer>();
         Log.i("test", "Before Trans");
-        /*LiveData<List<Transaction>> transactionItemLiveData= Transactiondb.getAllRide();
+        LiveData<List<Transaction>> transactionItemLiveData= Transactiondb.getAllRide();
         Transactiondb.getAllRide().observe(this, transactions -> {
             Log.i("test", "Live Trans");
             if (transactions != null && !transactions.isEmpty()) {
@@ -101,7 +102,7 @@ public class OrderActivity extends AppCompatActivity {
             }else{
                 Log.i("Test", "doesnt get an item");
             }
-        });*/
+        });
 
 
         return productIds;
@@ -121,7 +122,7 @@ public class OrderActivity extends AppCompatActivity {
                 TextView textView = new TextView(this);
                 int textViewId = View.generateViewId();
                 textView.setId(textViewId);
-                String nameDesc = "Order : " + name + "From " + place;
+                String nameDesc = "Order : " + name + " From " + place;
                 textView.setText(nameDesc);
 
 
