@@ -245,7 +245,7 @@
       {"to":  "rockin_tug", "weight": 0.3, "image": "path83.png"},
       {"to":  "festival_area", "weight": 0.2, "image": "path86.png"},
       {"to":  "grove", "weight": 0.4, "image": "path85.png"},
-      {"to":  "full_tilt", "weight": 0.4, "image": "path87.png"}
+      {"to":  "full_tilt", "weight": 0.25, "image": "path87.png"}
     ],
     "festival_area": [
       {"to": "tilt_a_whirl", "weight": 0.2, "image": "path86.png"},
@@ -294,7 +294,7 @@
       {"to": "martys_finger_lickin_chicken", "weight": 0.2, "image": "path77.png"},
       {"to": "boppers", "weight": 0.2, "image": "path_80.png"},
       {"to": "rockin_tug", "weight": 0.1, "image": "path_81.png"},
-      {"to": "tilt_a_whirl", "weight": 0.4, "image": "path_87.png"},
+      {"to": "tilt_a_whirl", "weight": 0.25, "image": "path_87.png"},
       {"to": "grove", "weight": 0.1, "image": "path99.png"},
       {"to": "creekside", "weight": 4, "image": "path100.png"}
     ],

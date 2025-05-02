@@ -1,17 +1,12 @@
 package com.college.cs4048_group_007.pathing;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.io.InputStream;
 import java.util.List;
@@ -30,25 +25,26 @@ public class PathVisualizer {
 
         Log.i("PATH_VISUALIZER", path.get(0));
 
-        for(int i = 0; i < path.size(); i++){
+        for (int i = 0; i < path.size(); i++) {
             ImageView imageView = new ImageView(context);
-            Drawable drawable = loadImageFromAssets(path.get(i));
+            Bitmap bitmap = loadImageFromAssets(path.get(i));
 
-            Drawable wrappedDrawable = DrawableCompat.wrap(drawable).mutate();
+            TintedDrawable redTintDrawable =
+                    new TintedDrawable(
+                            bitmap,
+                            Color.argb(0.5f, 1.0f, 0.0f, 0.0f));
 
-            DrawableCompat.setTint(wrappedDrawable, ContextCompat.getColor(context, android.R.color.holo_red_dark));
+            imageView.setImageDrawable(redTintDrawable);
 
-            imageView.setImageDrawable(wrappedDrawable);
 
             frameLayout.addView(imageView);
         }
-
     }
 
-    private Drawable loadImageFromAssets(String imagePath) {
+    private Bitmap loadImageFromAssets(String imagePath) {
         try {
             InputStream image = context.getAssets().open("paths/" + imagePath);
-            return Drawable.createFromStream(image, null);
+            return BitmapFactory.decodeStream(image);
         } catch (Exception e) {
             Log.e("PATH_VISUALIZER", e.getMessage());
             return null;

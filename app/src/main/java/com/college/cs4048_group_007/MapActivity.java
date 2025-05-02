@@ -283,7 +283,8 @@ public class MapActivity extends AppCompatActivity {
                                 context,
                                 graphManager.getPathGraph(),
                                 graphManager.getPathFinder(attractName),
-                                findViewById(R.id.path_frame_layout)
+                                findViewById(R.id.path_frame_layout),
+                                attractName
                         )
                 )
                 .build();

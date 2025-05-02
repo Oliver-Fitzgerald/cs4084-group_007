@@ -31,6 +31,7 @@ public class PathingPopupComponent extends PopupComponent {
 
     private final PathGraph pathGraph;
     private final PathFinder pathFinder;
+    private String attraction_name;
 
     /**
      * Constructs a {@code PathingPopupComponent} using a default layout resource and shared graph/finder instances.
@@ -39,12 +40,13 @@ public class PathingPopupComponent extends PopupComponent {
      * @param pathGraph The shared {@code PathGraph} instance.
      * @param pathFinder The shared {@code PathFinder} instance.
      */
-    public PathingPopupComponent(Context context, PathGraph pathGraph, PathFinder pathFinder, FrameLayout pathFrameLayout) {
+    public PathingPopupComponent(Context context, PathGraph pathGraph, PathFinder pathFinder, FrameLayout pathFrameLayout, String attraction_name) {
         super(context, R.layout.pathing_popup_component);
         this.context = context;
         this.pathGraph = pathGraph;
         this.pathFinder = pathFinder;
         this.pathFrameLayout = pathFrameLayout;
+        this.attraction_name = attraction_name;
         initializeViews();
     }
 
@@ -72,7 +74,7 @@ public class PathingPopupComponent extends PopupComponent {
         }
 
         // Find the shortest path using the shared PathFinder
-        List<String> shortestPath = pathFinder.getShortestPath("carousel", attractionName);
+        List<String> shortestPath = pathFinder.getShortestPath(this.attraction_name, attractionName);
 
         if (shortestPath == null || shortestPath.isEmpty()) {
             Toast.makeText(context, "Ride not found!", Toast.LENGTH_SHORT).show();
