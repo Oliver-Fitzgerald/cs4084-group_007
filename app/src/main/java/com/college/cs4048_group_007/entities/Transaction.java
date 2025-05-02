@@ -22,4 +22,5 @@ public class Transaction {
         this.productId = product_id;
         this.status = status;
     }
+
 }

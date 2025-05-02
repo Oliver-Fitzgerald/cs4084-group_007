@@ -363,6 +363,10 @@ public abstract class AppDatabase extends RoomDatabase {
             db.saleItemDao().insert(saleItem);
             db.saleItemDao().insert(saleItem2);
         }
+        if (db.saleItemDao().getItemCount() < 3) {
+            SaleItem saleItem = new SaleItem(59, 20.00F,"Burger", "non-vegan", 1000);
+            db.saleItemDao().insert(saleItem);
+        }
         /*if (db.transactionDao().getCount() == 0){
             Transaction transaction = new Transaction(2, "open");
         }*/

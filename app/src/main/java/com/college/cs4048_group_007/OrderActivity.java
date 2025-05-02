@@ -97,10 +97,10 @@ public class OrderActivity extends AppCompatActivity {
                     int productId = transaction.productId;
                     for(SaleItem item : items){
                         if(item.productId == productId){
-                            if(true) {
+                            if(item.timer == 0) {
                                 createButtons(item.name, "Order Number " + String.valueOf(transaction.transactionId) + " Status :" + transaction.status);
                             }else{
-                                createFoodOrder();
+                                createFoodOrder(item.name, "Order Number " + String.valueOf(transaction.transactionId), item.timer);
                             }
                         }
                     }
@@ -141,8 +141,86 @@ public class OrderActivity extends AppCompatActivity {
 
         return productIds;
     }
-    void createFoodOrder(){
+    void createFoodOrder(String name, String id, long timer){
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
+
+            runOnUiThread(() -> {
+
+                Log.i("test", "Breaks at the button");
+                LinearLayout layout = findViewById(R.id.linearLayoutContainer);
+                TextView textView = new TextView(this);
+                int textViewId = View.generateViewId();
+                textView.setId(textViewId);
+                String nameDesc = "Order : " + name + " From ";
+                textView.setText(nameDesc);
+                layout.addView(textView);
+
+                Button button = new Button(this);
+                button.setText("Progress on "+ name);
+                button.setOnClickListener( v -> {
+                    Intent intent = new Intent(this, FoodwaitingActivity.class);
+                    intent.putExtra("poi_id", timer);
+                    intent.putExtra("poi_id", name);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                });
+                layout.addView(button);
+                    /*Button button = new Button(this);
+                    int thisId = View.generateViewId();
+                    buttonIds.add(thisId);
+                    button.setText("Add to Order");
+
+                    // Set layout params
+                    ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    );
+
+                    params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.verticalBias = 0.305f*productId;
+                    params.horizontalBias = 0.671f;
+
+                    button.setLayoutParams(params);
+
+                    button.setOnClickListener(v -> {
+                        addToOrder(name, productId, thisId);
+                        Toast.makeText(this, name+"added to Order", Toast.LENGTH_SHORT).show();
+                    });
+
+                    ConstraintLayout layout = findViewById(R.id.main);
+                    layout.addView(button);
+                    buttonIds.add(button.getId());
+
+                    TextView textView = new TextView(this);
+                    int textViewId = View.generateViewId();
+                    textView.setId(textViewId);
+                    textView.setText(name);
+
+                    ConstraintLayout.LayoutParams textParams = new ConstraintLayout.LayoutParams(
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    textParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+                    textParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+
+
+                    textParams.endToStart = buttonIds.get(buttonIds.size() - 1);
+                    textParams.verticalBias = 0.305f*productId;
+                    textParams.setMarginEnd(16);
+
+                    textView.setLayoutParams(textParams);
+                    layout.addView(textView);*/
+            });
+        }).start();
     }
     void createButtons(String name, String place) {
         new Thread(() -> {
