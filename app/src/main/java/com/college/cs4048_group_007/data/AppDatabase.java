@@ -357,6 +357,16 @@ public abstract class AppDatabase extends RoomDatabase {
             ride = new Ride("3", 59, 180, 5, 0);
             db.rideDao().insert(ride);
         }
+        if (db.saleItemDao().getItemCount() < 2) {
+            SaleItem saleItem = new SaleItem(1, 20.00F,"ticket", "ticket for one");
+            SaleItem saleItem2 = new SaleItem(1, 35.00F,"ticket x2", "ticket for two");
+            db.saleItemDao().insert(saleItem);
+            db.saleItemDao().insert(saleItem2);
+        }
+        /*if (db.transactionDao().getCount() == 0){
+            Transaction transaction = new Transaction(2, "open");
+        }*/
+
     }
 
     public static void replaceDatabase(Context context, String sourcePath) {

@@ -75,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         shopButton.setOnClickListener(v -> {
             System.out.println("Shop button clicked`");
         });
+        Button orderButton = findViewById(R.id.btnOpenOrder);
+        orderButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, OrderActivity.class);
+            startActivity(intent);
+        });
 
     }
     @Override

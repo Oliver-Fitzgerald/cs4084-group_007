@@ -30,6 +30,7 @@ public class SaleItem {
 
     @ColumnInfo(name = "description")
     public String description;
+<<<<<<< Updated upstream
     @ColumnInfo(name = "timer")
     public long timer;
 
@@ -41,5 +42,15 @@ public class SaleItem {
         this.name = name;
         this.description = description;
         this.timer = timer;
+=======
+    public SaleItem(){
+
+    }
+    public SaleItem(int poiId, float price, String name, String desc){
+        this.poiId = poiId;
+        this.price = price;
+        this.name = name;
+        this.description = desc;
+>>>>>>> Stashed changes
     }
 }
