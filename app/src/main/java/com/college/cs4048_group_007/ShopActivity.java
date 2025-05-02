@@ -62,7 +62,6 @@ public class ShopActivity extends AppCompatActivity {
             return insets;
         });
 
-        setupShopActivity();
 
     }
     @Override
@@ -70,7 +69,7 @@ public class ShopActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         resetAct();
-        setupShopActivity();
+        //setupShopActivity();
     }
 
     protected void onResume(){
@@ -158,7 +157,8 @@ public class ShopActivity extends AppCompatActivity {
         itemsDb.getAllSaleItem().observe(this, saleItemsList -> {
 
             if(saleItemsList != null && !saleItemsList.isEmpty()){
-
+                this.items.clear();
+                System.out.println(saleItemsList.toString());
                 for(int i = 0; i < Objects.requireNonNull(saleItemsList).size(); i++){
                     this.items.add(saleItemsList.get(i));
                     // the sale item id
@@ -170,9 +170,10 @@ public class ShopActivity extends AppCompatActivity {
                         Log.i("Test", "Sale Item actually added" + String.valueOf(idSaleItem));
                         // adds it of it has the same poi is the same
                         productIds.add(idSaleItem);
+                        createButtons(items.get(i).name, items.get(i).description, items.get(i).productId, items.get(i).timer);
                     }
                 }
-                for (int i = 0; i < productIds.size(); i++) {
+                /*for (int i = 0; i < productIds.size(); i++) {
                     Log.i("Test", "ProductsSize " + String.valueOf(productIds.size()));
                     for(int j = 0; j < items.size(); j++){
 
@@ -184,7 +185,7 @@ public class ShopActivity extends AppCompatActivity {
                             createButtons(name,items.get(j).description, items.get(j).productId, items.get(j).timer);
                         }
                     }
-                }
+                }*/
             }else{
                 Log.i("Test", "doesnt get an item");
             }
@@ -201,7 +202,7 @@ public class ShopActivity extends AppCompatActivity {
     void back(){
         Button back = findViewById(R.id.back);
         back.setOnClickListener( v -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
         });
 
@@ -243,6 +244,7 @@ public class ShopActivity extends AppCompatActivity {
                     layout.addView(textView);
                     layout.addView(textView2);
                     layout.addView(button);
+
                     /*Button button = new Button(this);
                     int thisId = View.generateViewId();
                     buttonIds.add(thisId);
