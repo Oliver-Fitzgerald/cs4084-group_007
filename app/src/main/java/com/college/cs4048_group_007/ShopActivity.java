@@ -288,6 +288,7 @@ public class ShopActivity extends AppCompatActivity {
 
     void orderCompleted(){
         Log.i("test", String.valueOf(this.transaction.transactionId));
+        Log.i("test", String.valueOf(this.transaction.productId));
         //Transactiondb.insertTransaction(this.transaction);
         Button order = findViewById(R.id.order);
         order.setEnabled(false);
