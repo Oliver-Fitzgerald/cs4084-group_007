@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.college.cs4048_group_007.MainActivity;
+import com.college.cs4048_group_007.OrderActivity;
 import com.college.cs4048_group_007.Profile;
 import com.college.cs4048_group_007.R;
 import com.google.android.material.button.MaterialButton;
@@ -61,6 +62,11 @@ public class Menu extends Fragment {
                 Intent intent = new Intent(getContext(), Profile.class);
                 startActivity(intent);
             }
+        });
+        Button orderButton = view.findViewById(R.id.ordersButton);
+        orderButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), OrderActivity.class);
+            startActivity(intent);
         });
     }
 }
