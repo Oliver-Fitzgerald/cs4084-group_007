@@ -21,10 +21,6 @@
 .cxx
 local.properties
 
-# Gradle Wrapper
-gradle-wrapper.jar
-gradle-wrapper.properties
-
 # Android Studio specific
 .idea/inspectionProfiles/
 
