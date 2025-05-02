@@ -41,9 +41,7 @@ public class ShopActivity extends AppCompatActivity {
     TransactionRepository Transactiondb;
     SaleItemRepository itemsDb;
     PoiRepository poiDb;
-    boolean ordered = false;
-    ArrayList<String> orderedItems = new ArrayList<String>();
-    int orderNumber;
+
     int id;
     List<Integer> buttonIds = new ArrayList<>();
     List<Integer> itemIds = new ArrayList<>();
@@ -107,6 +105,7 @@ public class ShopActivity extends AppCompatActivity {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             insertTestData(db);
         });
+
         Log.i("Test", String.valueOf(id));
         back();
         getProductIds(id);
@@ -178,7 +177,6 @@ public class ShopActivity extends AppCompatActivity {
                     for(int j = 0; j < items.size(); j++){
 
                         Log.i("Test", "productIds" + String.valueOf(items.get(j).productId));
-                        Log.i("Test", "I value" + String.valueOf(i));
                         Log.i("Test", "other value" + String.valueOf(productIds.get(i)));
                         if(items.get(j).productId == productIds.get(i)){
                             Log.i("Test", "productIds actually checked" + String.valueOf(items.get(j).productId));
