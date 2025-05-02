@@ -1,6 +1,7 @@
 package com.college.cs4048_group_007.popup;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -83,6 +84,7 @@ public class Popup {
          * @return The current {@code Builder} instance to allow method chaining.
          */
         public Builder init(Context context) {
+            Log.i("POPUP", "init");
             this.context = context;
             return this;
         }
@@ -97,7 +99,7 @@ public class Popup {
             // Inflate the base layout and set up the component grid
             this.popupView = LayoutInflater.from(this.context).inflate(layoutResource, null, false);
             this.componentGrid = new PopupComponentGrid(this.context);
-
+            Log.i("POPUP", "setBase");
             return this;
         }
 

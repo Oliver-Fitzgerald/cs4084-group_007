@@ -101,8 +101,8 @@ public class LoadingMap extends AppCompatActivity {
                 // Scale Bitmap
                 mapPOI = Bitmap.createScaledBitmap(mapPOI, 3126, 2274, true);
 
-                String message = format("Loading Bitmap from file %s in assets/myImages", files[i].substring(0, files[i].indexOf(".")));
-                Log.i(LOADING_ACTIVITY, message);
+//                String message = format("Loading Bitmap from file %s in assets/myImages", files[i].substring(0, files[i].indexOf(".")));
+//                Log.i(LOADING_ACTIVITY, message);
                 mapPOIs.put(files[i].substring(0, files[i].indexOf(".")), mapPOI);
                 inputStream.close();
 

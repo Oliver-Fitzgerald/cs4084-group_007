@@ -1,6 +1,7 @@
 package com.college.cs4048_group_007.popup;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class DescriptionPopupComponent extends PopupComponent {
     public DescriptionPopupComponent(Context context, int layoutResource){
         super(context, layoutResource);
         this.descriptionView = this.getComponentView().findViewById(R.id.popup_description);
+        Log.i("DESCRIPTION_POPUP", "new");
     }
 
     /**

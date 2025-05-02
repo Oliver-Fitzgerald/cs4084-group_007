@@ -47,6 +47,7 @@ public class PathingPopupComponent extends PopupComponent {
         this.pathFinder = pathFinder;
         this.pathFrameLayout = pathFrameLayout;
         this.attraction_name = attraction_name;
+        Log.i("PATHINGPOPUP", "here");
         initializeViews();
     }
 

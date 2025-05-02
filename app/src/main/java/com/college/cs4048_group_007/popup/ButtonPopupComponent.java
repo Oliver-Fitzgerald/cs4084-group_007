@@ -1,6 +1,7 @@
 package com.college.cs4048_group_007.popup;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class ButtonPopupComponent extends PopupComponent {
         super(context, layoutResource);
         this.buttonView = this.getComponentView().findViewById(R.id.popup_button);
         this.myButton = this.getComponentView().findViewById(R.id.popup_button);
+        Log.i("BUTTON_POPUP", "new button popup");
     }
     public void setText(String text) {
         myButton.setText(text);

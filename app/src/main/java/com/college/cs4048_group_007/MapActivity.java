@@ -110,10 +110,7 @@ public class MapActivity extends AppCompatActivity {
         });
         mapPOIs = LoadingMap.mapPOIs;
 
-        //this.loadGraphAndPathFinder(getApplicationContext());
-
-
-
+        this.loadGraphAndPathFinder(getApplicationContext());
     }
 
     final boolean[] popUpActive = {false};
@@ -184,12 +181,11 @@ public class MapActivity extends AppCompatActivity {
                 // If not transparent, process the touch
                 if (entry.getValue().getPixel(x, y) >>> 24 == 255 ) {
                     try {
-                        message = format("Click registered on POI %s(clicked X: %d, clicked Y: %d, POI width: %d, POI height: %d)", entry.getKey(), x, y, entry.getValue().getWidth(), entry.getValue().getHeight());
-                        Log.d(MAP_ACTIVITY, message);
+//                        message = format("Click registered on POI %s(clicked X: %d, clicked Y: %d, POI width: %d, POI height: %d)", entry.getKey(), x, y, entry.getValue().getWidth(), entry.getValue().getHeight());
+//                        Log.d(MAP_ACTIVITY, message);
                         Toast.makeText(getApplicationContext(), "You clicked " + entry.getKey(), Toast.LENGTH_SHORT).show();
                         //textOfPOI.cckPOI();
                         if (!popUpActive[0]) {
-                            System.out.println("here");
                             currentPopUp[0] = getPopup(getApplicationContext(), x, y, entry.getKey());
                             popUpActive[0] = true;
                         } else
@@ -267,134 +263,138 @@ public class MapActivity extends AppCompatActivity {
 
 
     public View getPopup(Context context, int x, int y, String attractName) {
+        try{
+            //Create Shop Button for popup
+            ButtonPopupComponent buttonPopupComponent = new ButtonPopupComponent(context, R.layout.button_popup_component);
+            System.out.println("User Type: " + userType);
+            if (userType.equals("admin"))
+                buttonPopupComponent.setText("Admin Panel");
+            else
+                buttonPopupComponent.setText("Shop");
+            //Build Pop up
+            Popup popup = new Popup.Builder()
+                    .init(context)
+                    .setBase(R.layout.rollercoaster_base)
+                    .addComponent(new DescriptionPopupComponent(context)) // Popup POI Basic Info
+                    .addComponent(buttonPopupComponent) // Popup Shop Button
+                    .addComponent(
+                            new PathingPopupComponent(
+                                    context,
+                                    graphManager.getPathGraph(),
+                                    graphManager.getPathFinder(attractName),
+                                    findViewById(R.id.path_frame_layout),
+                                    attractName
+                            )
+                    )
+                    .build();
 
-        //Create Shop Button for popup
-        ButtonPopupComponent buttonPopupComponent = new ButtonPopupComponent(context, R.layout.button_popup_component);
-        System.out.println("User Type: " + userType);
-        if (userType.equals("admin"))
-            buttonPopupComponent.setText("Admin Panel");
-        else
-            buttonPopupComponent.setText("Shop");
+            //DB DAO
+            PoiRepository poiRepository = new PoiRepository(getApplication());
+            PoiViewModelFactory factory = new PoiViewModelFactory(poiRepository);
+            PoiViewModel poiViewModel = new ViewModelProvider(this, factory).get(PoiViewModel.class);
 
-        //Build Pop up
-        Popup popup = new Popup.Builder()
-                .init(context)
-                .setBase(R.layout.rollercoaster_base)
-                .addComponent(new DescriptionPopupComponent(context)) // Popup POI Basic Info
-                .addComponent(buttonPopupComponent) // Popup Shop Button
-                .addComponent(
-                        new PathingPopupComponent(
-                                context,
-                                graphManager.getPathGraph(),
-                                graphManager.getPathFinder(attractName),
-                                findViewById(R.id.path_frame_layout),
-                                attractName
-                        )
-                )
-                .build();
+            //Get POI Object from attraction name
+            poiViewModel.getIdByName(attractName).observe(this, poiId -> {
 
-        //DB DAO
-        PoiRepository poiRepository = new PoiRepository(getApplication());
-        PoiViewModelFactory factory = new PoiViewModelFactory(poiRepository);
-        PoiViewModel poiViewModel = new ViewModelProvider(this, factory).get(PoiViewModel.class);
+                if (poiId != null) {
+                    // Log the ID to confirm data retrieval
+                    android.util.Log.d("MapActivity1", "ID fetched: " + poiId);
+                    android.util.Log.d("MapActivity1", "ID fetched: " + poiId);
+                    android.util.Log.d("MapActivity1", "attractName fetched: " + attractName);
 
-        //Get POI Object from attraction name
-        poiViewModel.getIdByName(attractName).observe(this, poiId -> {
+                    final String[] description = new String[1];
+                    poiViewModel.getPoiById(poiId).observe(this, poi -> {
 
-            if (poiId != null) {
-                // Log the ID to confirm data retrieval
-                android.util.Log.d("MapActivity1", "ID fetched: " + poiId);
-                android.util.Log.d("MapActivity1", "ID fetched: " + poiId);
-                android.util.Log.d("MapActivity1", "attractName fetched: " + attractName);
+                        //Add Info relevant for every poopup
+                        if (poi != null) {
+                            // Log the description to confirm data retrieval
+                            android.util.Log.d("MapActivity1", "ridePoi.name fetched: " + poi.name);
 
-                final String[] description = new String[1];
-                poiViewModel.getPoiById(poiId).observe(this, poi -> {
+                            description[0] = "" +
+                                    "Name: " + poi.name.replaceAll("_", " ") + "\n" +
+                                    "Description: " + poi.description + "\n" +
+                                    "Open & Close time: " + poi.openTime + "am--" + poi.closeTime + "pm\n";
 
-                    //Add Info relevant for every poopup
-                    if (poi != null) {
-                        // Log the description to confirm data retrieval
-                        android.util.Log.d("MapActivity1", "ridePoi.name fetched: " + poi.name);
-
-                        description[0] = "" +
-                                "Name: " + poi.name.replaceAll("_", " ") + "\n" +
-                                "Description: " + poi.description + "\n" +
-                                "Open & Close time: " + poi.openTime + "am--" + poi.closeTime + "pm\n";
-
-                    }
-
-                    //Add Info relevant for rides only
-                    currentPOI = poiId;
-                    poiViewModel.getRidePoiById(poiId).observe(this, ridePoi -> {
-
-                        Log.i("TESTING","Entered Ride POI");
-                        if (ridePoi != null) Log.i("TESTING","Ride POI is null");
-                        if (ridePoi != null) {
-
-                            description[0] += "" +
-                                    "Rating: " + ridePoi.rating + "\n" +
-                                    "Current Waiting Time: " + ridePoi.queue_length + "\n";
                         }
 
-                        android.util.Log.d("MapActivity2", "Description fetched: " + description[0]);
-                        TextView popupTitle = popup.getView().findViewById(R.id.popup_title);
+                        //Add Info relevant for rides only
+                        currentPOI = poiId;
+                        poiViewModel.getRidePoiById(poiId).observe(this, ridePoi -> {
 
-                        android.util.Log.d("MapActivity2", "popupTitle: " + popupTitle.getText());
-                        popupTitle.setText(attractName.replaceAll("_"," "));
+                            Log.i("TESTING", "Entered Ride POI");
+                            if (ridePoi != null) Log.i("TESTING", "Ride POI is null");
+                            if (ridePoi != null) {
 
-                        // Update the popup data dynamically
-                        Map<String, Object> descriptionComponentData = Map.of("description", description[0]);
+                                description[0] += "" +
+                                        "Rating: " + ridePoi.rating + "\n" +
+                                        "Current Waiting Time: " + ridePoi.queue_length + "\n";
+                            }
 
-                        Map<String, Map<String, Object>> data = Map.of(
-                                "description", descriptionComponentData
-                        );
-                        popup.update(data);
+                            android.util.Log.d("MapActivity2", "Description fetched: " + description[0]);
+                            TextView popupTitle = popup.getView().findViewById(R.id.popup_title);
+
+                            android.util.Log.d("MapActivity2", "popupTitle: " + popupTitle.getText());
+                            popupTitle.setText(attractName.replaceAll("_", " "));
+
+                            // Update the popup data dynamically
+                            Map<String, Object> descriptionComponentData = Map.of("description", description[0]);
+
+                            Map<String, Map<String, Object>> data = Map.of(
+                                    "description", descriptionComponentData
+                            );
+                            popup.update(data);
+                        });
                     });
-                });
 
-            } else
-                Log.e(MAP_ACTIVITY,"Error retrieving POI object from DB");
-        });
+                } else
+                    Log.e(MAP_ACTIVITY, "Error retrieving POI object from DB");
+            });
 
-        Button popupButton = buttonPopupComponent.getMyButton();
-        if (userType.equals("user"))
-            if (popupButton != null) {
-                popupButton.setOnClickListener(v -> {
+            Button popupButton = buttonPopupComponent.getMyButton();
+            if (userType.equals("user"))
+                if (popupButton != null) {
+                    popupButton.setOnClickListener(v -> {
 
-                    Intent intent = new Intent(this, ShopActivity.class);
-                    intent.putExtra("poi_id", currentPOI);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("poi_id", currentPOI);
-                    Log.i("test", String.valueOf(currentPOI));
-                    context.startActivity(intent);
-                });
-            } else {
-                Log.e(MAP_ACTIVITY, "Button is null");
-            }
-        else if (userType.equals("admin"))
-            if (popupButton != null) {
-                popupButton.setOnClickListener(v -> {
-                    Intent intent = new Intent(this, AdminPanel.class);
-                    intent.putExtra("poiId", Integer.toString(currentPOI));
-                    startActivity(intent);
-                });
-            } else {
-                Log.e(MAP_ACTIVITY, "Button is null");
-            }
+                        Intent intent = new Intent(this, ShopActivity.class);
+                        intent.putExtra("poi_id", currentPOI);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("poi_id", currentPOI);
+                        Log.i("test", String.valueOf(currentPOI));
+                        context.startActivity(intent);
+                    });
+                } else {
+                    Log.e(MAP_ACTIVITY, "Button is null");
+                }
+            else if (userType.equals("admin"))
+                if (popupButton != null) {
+                    popupButton.setOnClickListener(v -> {
+                        Intent intent = new Intent(this, AdminPanel.class);
+                        intent.putExtra("poiId", Integer.toString(currentPOI));
+                        startActivity(intent);
+                    });
+                } else {
+                    Log.e(MAP_ACTIVITY, "Button is null");
+                }
 
-        LinearLayout popupContainer = findViewById(R.id.popup_container);
+            LinearLayout popupContainer = findViewById(R.id.popup_container);
 
-        popupContainer.setX(x - 200);
-        popupContainer.setY(y - 400);
+            popupContainer.setX(x - 200);
+            popupContainer.setY(y - 400);
 
-        View popupView = popup.getView();
+            View popupView = popup.getView();
 
-        if (popupView.getParent() != null)
-            ((ViewGroup) popupView.getParent()).removeView(popupView);
+            if (popupView.getParent() != null)
+                ((ViewGroup) popupView.getParent()).removeView(popupView);
 
-        popupContainer.addView(popupView);
+            popupContainer.addView(popupView);
 
-        popupView.setVisibility(View.VISIBLE);
-        return popupView;
+            popupView.setVisibility(View.VISIBLE);
+            return popupView;
+        }
+        catch(NullPointerException e){
+            Log.e("POPUP_BUILDER", e.getMessage());
+            return null;
+        }
     }
 
     /**
