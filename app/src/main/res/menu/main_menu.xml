@@ -8,10 +8,6 @@
         android:icon="@android:drawable/ic_menu_info_details"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/menu_stats"
-        android:title="Daily Stats"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_toggle_theme"

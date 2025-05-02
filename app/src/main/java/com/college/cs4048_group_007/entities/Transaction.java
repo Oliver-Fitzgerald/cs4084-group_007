@@ -12,6 +12,8 @@ public class Transaction {
     @ColumnInfo(name = "product_id")
     public int productId;
 
+    @ColumnInfo(name = "type")
+    public String type;
     @ColumnInfo(name = "status")
     public String status;
 }

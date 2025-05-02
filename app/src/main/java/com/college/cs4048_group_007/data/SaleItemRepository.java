@@ -28,4 +28,15 @@ public class SaleItemRepository {
         // Room automatically runs it on a background thread because DAO returns LiveData<>
         return saleItemDao.getSaleItemById(productId);
     }
+<<<<<<< Updated upstream
+=======
+
+    public LiveData<SaleItem> getSaleItemByName(String name) {
+        return saleItemDao.getSaleItemByName(name);
+    }
+
+    public LiveData<List<SaleItem>> getAllSaleItem(){
+        return saleItemDao.getAllSaleItem();
+    }
+>>>>>>> Stashed changes
 }

@@ -21,7 +21,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.lang.reflect.Field;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ModeChangingActivity {
 
     final private String RESET = "\u001B[0m";
     final private String RED = "\u001B[41m";
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+<<<<<<< Updated upstream
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -116,4 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
         recreate(); // Optional: refresh the activity immediately
     }
+=======
+>>>>>>> Stashed changes
 }

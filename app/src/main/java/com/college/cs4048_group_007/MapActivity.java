@@ -16,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+<<<<<<< Updated upstream
+=======
+import android.widget.ImageButton;
+>>>>>>> Stashed changes
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +33,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.college.cs4048_group_007.data.AppDatabase;
 import com.college.cs4048_group_007.data.PoiRepository;
+<<<<<<< Updated upstream
 import com.college.cs4048_group_007.data.RideRepository;
+=======
+import com.college.cs4048_group_007.fragments.Menu;
+>>>>>>> Stashed changes
 import com.college.cs4048_group_007.pathing.POI;
 import com.college.cs4048_group_007.popup.ButtonPopupComponent;
 import com.college.cs4048_group_007.popup.DescriptionPopupComponent;
@@ -57,6 +65,11 @@ public class MapActivity extends AppCompatActivity {
     final private static Map<String, POI> textPOIs = new HashMap<>();//POI Text Regions
     private static String message;
     private static String loadBitmapThreadMessage;
+<<<<<<< Updated upstream
+=======
+    private String userType = "null";
+    private int currentPOI ;
+>>>>>>> Stashed changes
 
 
     @Override
@@ -77,6 +90,21 @@ public class MapActivity extends AppCompatActivity {
             AppDatabase.insertTestData(db);
         });
 
+<<<<<<< Updated upstream
+=======
+
+        //Menu Button Listner
+        ImageButton menuButton = findViewById(R.id.menu_button);
+        menuButton.setOnClickListener(v -> {
+            Log.i(MAP_ACTIVITY,"Menu Button Clicked");
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.map_container,Menu.class,null)
+                    .commit();
+        });
+        mapPOIs = LoadingMap.mapPOIs;
+>>>>>>> Stashed changes
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -227,8 +255,13 @@ public class MapActivity extends AppCompatActivity {
         Popup popup = new Popup.Builder()
                 .init(context)
                 .setBase(R.layout.rollercoaster_base)
+<<<<<<< Updated upstream
                 .addComponent(new DescriptionPopupComponent(context))
                 .addComponent(buttonPopupComponent)
+=======
+                .addComponent(new DescriptionPopupComponent(context)) // Popup POI Basic Info
+                .addComponent(buttonPopupComponent) // Popup Shop Button
+>>>>>>> Stashed changes
                 .build();
 
         PoiRepository poiRepository = new PoiRepository(getApplication());
@@ -275,6 +308,7 @@ public class MapActivity extends AppCompatActivity {
         });
 
         Button popupButton = buttonPopupComponent.getMyButton();
+<<<<<<< Updated upstream
         if (popupButton != null) {
             popupButton.setOnClickListener(v -> {
                 Intent intent = new Intent(this, FoodwaitingActivity.class);
@@ -284,6 +318,28 @@ public class MapActivity extends AppCompatActivity {
         } else {
             Log.e(MAP_ACTIVITY, "Button is null");
         }
+=======
+        if (userType.equals("user"))
+            if (popupButton != null) {
+                popupButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(this, FoodwaitingActivity.class);
+                    intent.putExtra("attraction_name", attractName);
+                    startActivity(intent);
+                });
+            } else {
+                Log.e(MAP_ACTIVITY, "Button is null");
+            }
+        else if (userType.equals("admin"))
+            if (popupButton != null) {
+                popupButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(this, AdminPanel.class);
+                    intent.putExtra("poiId", Integer.toString(currentPOI));
+                    startActivity(intent);
+                });
+            } else {
+                Log.e(MAP_ACTIVITY, "Button is null");
+            }
+>>>>>>> Stashed changes
 
         LinearLayout popupContainer = findViewById(R.id.popup_container);
 
@@ -300,4 +356,8 @@ public class MapActivity extends AppCompatActivity {
         popupView.setVisibility(View.VISIBLE);
         return popupView;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

@@ -19,6 +19,15 @@
             android:name=".FoodwaitingActivity"
             android:exported="false"/>
         <activity
+<<<<<<< Updated upstream
+=======
+            android:name=".LoadingMap"
+            android:exported="false"/>
+        <activity
+            android:name=".AdminPanel"
+            android:exported="false" />
+        <activity
+>>>>>>> Stashed changes
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Cs4048group_007.Main">

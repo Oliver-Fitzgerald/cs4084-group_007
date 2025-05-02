@@ -20,8 +20,17 @@ public interface SaleItemDao {
     @Query("SELECT * FROM sale_item")
     LiveData<List<SaleItem>> getAllSaleItem();
 
+<<<<<<< Updated upstream
     @Query("SELECT * FROM sale_item WHERE product_id = :productId")
     LiveData<SaleItem> getSaleItemById(int productId);
+=======
+    @Query("SELECT * FROM sale_item WHERE poi_id = :poiId")
+    LiveData<SaleItem> getSaleItemById(int poiId);
+    @Query("SELECT COUNT(*) FROM sale_item")
+    int getItemCount();
+    @Query("SELECT * FROM sale_item WHERE name = :name")
+    LiveData<SaleItem> getSaleItemByName(String name);
+>>>>>>> Stashed changes
 
     @Update
     int updateSaleItem(SaleItem saleItem);
