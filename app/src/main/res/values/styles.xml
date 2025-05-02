@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="lightnobar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">#FF6200EE</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">#FF80CBC4</item>
+    </style>
+</resources>

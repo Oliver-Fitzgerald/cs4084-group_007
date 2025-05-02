@@ -24,7 +24,8 @@
             android:exported="false"/>
         <activity
             android:name=".MapActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"/>
         <activity
             android:name=".FoodwaitingActivity"
             android:exported="false"/>

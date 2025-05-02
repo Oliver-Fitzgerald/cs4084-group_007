@@ -2,17 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
 
     <!-- EditText for Ride Name Input -->
     <EditText
         android:id="@+id/ride_name_input"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Enter Ride Name"
+        android:hint="Enter ride name to find shortest path!"
         android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/find_path_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         android:layout_marginTop="16dp"
@@ -23,13 +25,14 @@
         android:id="@+id/find_path_button"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="Find Path"
+        android:text="Find Shortest Path"
         app:layout_constraintTop_toBottomOf="@id/ride_name_input"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="16dp"
-        android:background="#FF0000"
+        android:layout_marginBottom="16dp"
+        android:background="#FFF"
         android:textColor="#000"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
