@@ -31,7 +31,9 @@ public class OrderActivity extends AppCompatActivity {
     TransactionRepository Transactiondb;
     SaleItemRepository itemsDb = new SaleItemRepository(getApplication());
     PoiRepository poiDb = new PoiRepository(getApplication());
-    List<Transaction> items = new ArrayList<>();
+    List<Integer> items = new ArrayList<Integer>();
+    LiveData<List<SaleItem>> allItems = itemsDb.getAllSaleItem();
+    ArrayList<SaleItem> transactionItems = new ArrayList<SaleItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +49,19 @@ public class OrderActivity extends AppCompatActivity {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             AppDatabase.insertTestData(db);
         });
+        allItems.observe(this, saleItems -> {
+            if (saleItems != null) {
+                transactionItems.clear();
+                transactionItems.addAll(saleItems);
+                Log.i("Test", "Loaded " + transactionItems.size() + " sale items");
+
+                getProductIds(transactionItems);
+            }
+        });
         Transactiondb = new TransactionRepository(getApplication());
         back();
         Log.i("test", "Order opens fine");
-        getProductIds();
+
     }
     void back(){
         Button back = findViewById(R.id.back);
@@ -61,7 +72,7 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
-    ArrayList<Integer> getProductIds(){
+    ArrayList<Integer> getProductIds(ArrayList<SaleItem> items){
 
         /*LiveData<Poi> poi= poiDb.getPoiById(id);
         String test = poi.toString();
@@ -73,36 +84,54 @@ public class OrderActivity extends AppCompatActivity {
         String test2 = String.valueOf(poisList.size());
         Log.i("Test", test2);*/
         ArrayList<Integer> productIds = new ArrayList<Integer>();
-        Log.i("test", "Before Trans");
         LiveData<List<Transaction>> transactionItemLiveData= Transactiondb.getAllRide();
         Transactiondb.getAllRide().observe(this, transactions -> {
-            Log.i("test", "Live Trans");
+            Log.i("Test","Size :" + String.valueOf(transactions.size()));
+
+
             if (transactions != null && !transactions.isEmpty()) {
-                for (Transaction transaction : transactions) {
+                for (int i = 0; i<transactions.size(); i++) {
+                    Log.i("Test","I :" + String.valueOf(i));
+                    Transaction transaction = transactions.get(i);
                     int productId = transaction.productId;
-
-                    // Now query itemsDb to get SaleItem using productId
-                    itemsDb.getSaleItemById(productId).observe(this, saleItem -> {
-                        if (saleItem != null) {
-                            int poiId = saleItem.poiId; // or saleItem.poiId if public
-                            Log.i("Test", "Found PoiId: " + poiId + " for ProductId: " + productId);
-
-                            // If you want to go further and get the POI itself:
-                            poiDb.getPoiById(poiId).observe(this, poi -> {
-                                if (poi != null) {
-                                    Log.i("Test", "Poi name: " + poi.name); // example
-                                    createButtons(saleItem.name, poi.name);
-                                }
-                            });
+                    for(SaleItem item : items){
+                        if(item.productId == productId){
+                            createButtons(item.name, "Place right now");
                         }
-                    });
+                    }
                 }
-
-
             }else{
                 Log.i("Test", "doesnt get an item");
             }
         });
+        /*Transactiondb.getAllRide().observe(this, transactions -> {
+            Log.i("test", "Live Trans");
+
+            if (transactions != null && !transactions.isEmpty()) {
+                for (Transaction transaction : transactions) {
+                    int productId = transaction.productId;
+
+                    itemsDb.getSaleItemById(productId).observe(this, saleItem -> {
+                        if (saleItem != null) {
+                            int poiId = saleItem.poiId;
+
+                            poiDb.getPoiById(poiId).observe(this, poi -> {
+                                if (poi != null) {
+                                    Log.i("Test", "Poi name: " + poi.name + " for product " + saleItem.name);
+                                    createButtons(saleItem.name, poi.name);
+                                } else {
+                                    Log.w("Test", "POI not found for poiId: " + poiId);
+                                }
+                            });
+                        } else {
+                            Log.w("Test", "SaleItem not found for productId: " + productId);
+                        }
+                    });
+                }
+            } else {
+                Log.i("Test", "No transactions found");
+            }
+        });*/
 
 
         return productIds;
@@ -117,6 +146,7 @@ public class OrderActivity extends AppCompatActivity {
 
 
             runOnUiThread(() -> {
+
                 Log.i("test", "Breaks at the button");
                 LinearLayout layout = findViewById(R.id.linearLayoutContainer);
                 TextView textView = new TextView(this);
@@ -124,10 +154,6 @@ public class OrderActivity extends AppCompatActivity {
                 textView.setId(textViewId);
                 String nameDesc = "Order : " + name + " From " + place;
                 textView.setText(nameDesc);
-
-
-
-
                 layout.addView(textView);
 
 
