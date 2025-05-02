@@ -49,21 +49,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Home"/>
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/menu_events_button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Events"
+            tools:layout_editor_absoluteX="-98dp"
+            tools:layout_editor_absoluteY="352dp" />
 
         <Button
             android:id="@+id/menu_profile_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Profile"/>
+            android:text="Profile" />
 
         <Button
-            android:id="@+id/menu_events_button"
+            android:id="@+id/ordersButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Events"/>
+            android:text="@string/my_orders" />
 
     </LinearLayout>
 
