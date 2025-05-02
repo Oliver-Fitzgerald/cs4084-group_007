@@ -9,15 +9,6 @@
     <!-- Menu Button -->
 
 
-    <Button
-        android:id="@+id/ordersButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Events"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="366dp" />
-
     <ImageButton
         android:id="@+id/close_menu_button"
         android:layout_width="60dp"
@@ -58,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Home"/>
+            android:text="Home" />
 
         <Button
             android:id="@+id/menu_events_button3"
@@ -74,14 +65,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Profile"/>
+            android:text="Profile" />
 
         <Button
-            android:id="@+id/menu_events_button"
+            android:id="@+id/ordersButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Events"/>
+            android:text="@string/my_orders" />
 
     </LinearLayout>
 
