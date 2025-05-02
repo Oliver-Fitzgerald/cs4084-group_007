@@ -13,11 +13,7 @@
     <string name="order">Order</string>
     <string name="back">Back</string>
     <string name="add_to_order">Add to Order</string>
-<<<<<<< Updated upstream
     <string name="menu_title">Menu</string>
     <string name="Loading">Loading ...</string>
-</resources>
-=======
     <string name="cancel">Cancel</string>
 </resources>
->>>>>>> Stashed changes
