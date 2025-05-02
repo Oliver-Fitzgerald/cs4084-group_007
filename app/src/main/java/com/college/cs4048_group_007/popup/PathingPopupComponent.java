@@ -66,7 +66,12 @@ public class PathingPopupComponent extends PopupComponent {
      */
     private void findAndDisplayPath() {
         Log.i("PATHING_POPUP", "clicked");
-        String attractionName = rideNameInput.getText().toString().trim();
+        String attractionName = rideNameInput
+                .getText()
+                .toString()
+                .trim()
+                .toLowerCase()
+                .replace(" ", "_");
 
         if (attractionName.isEmpty()) {
             Toast.makeText(context, "Please enter a ride name!", Toast.LENGTH_SHORT).show();
