@@ -277,10 +277,8 @@ public class MapActivity extends AppCompatActivity {
         Button popupButton = buttonPopupComponent.getMyButton();
         if (popupButton != null) {
             popupButton.setOnClickListener(v -> {
-                // Handle button click
-                Toast.makeText(getApplicationContext(), "Button clicked!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, FoodwaitingActivity.class);
-                Toast.makeText(getApplicationContext(), "Food ordering!", Toast.LENGTH_SHORT).show();
+//                intent.putExtra("item_name", "burger"); // burger get from db
                 startActivity(intent);
             });
         } else {

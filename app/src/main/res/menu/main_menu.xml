@@ -12,4 +12,9 @@
         android:id="@+id/menu_stats"
         android:title="Daily Stats"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_toggle_theme"
+        android:title="Toggle Dark Mode"
+        app:showAsAction="never" />
 </menu>
