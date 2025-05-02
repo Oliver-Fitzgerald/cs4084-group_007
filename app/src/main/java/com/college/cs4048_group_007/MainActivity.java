@@ -61,13 +61,16 @@ public class MainActivity extends AppCompatActivity {
             //Displays loading screen until the activity passed as parameter is ready
             Intent intent = new Intent(this, LoadingMap.class);
             intent.putExtra("load","bitmaps");
+            intent.putExtra("userType","user");
             startActivity(intent);
         });
 
         MaterialButton adminPannelButton = findViewById(R.id.admin_pannel);
         adminPannelButton.setOnClickListener(v -> {
             //Displays loading screen until the activity passed as parameter is ready
-            Intent intent = new Intent(this, AdminPanel.class);
+            Intent intent = new Intent(this, LoadingMap.class);
+            intent.putExtra("load","bitmaps");
+            intent.putExtra("userType","admin");
             startActivity(intent);
         });
 
