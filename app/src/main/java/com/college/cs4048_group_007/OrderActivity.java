@@ -66,7 +66,7 @@ public class OrderActivity extends AppCompatActivity {
     void back(){
         Button back = findViewById(R.id.back);
         back.setOnClickListener( v -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
         });
 
@@ -157,7 +157,7 @@ public class OrderActivity extends AppCompatActivity {
                 TextView textView = new TextView(this);
                 int textViewId = View.generateViewId();
                 textView.setId(textViewId);
-                String nameDesc = "Order : " + name + " From ";
+                String nameDesc = "Order : " + name + " From " + id;
                 textView.setText(nameDesc);
                 layout.addView(textView);
 
@@ -238,7 +238,7 @@ public class OrderActivity extends AppCompatActivity {
                 TextView textView = new TextView(this);
                 int textViewId = View.generateViewId();
                 textView.setId(textViewId);
-                String nameDesc = "Order : " + name + " From " + place;
+                String nameDesc = "Order : " + name + " Order number " + place;
                 textView.setText(nameDesc);
                 layout.addView(textView);
 
