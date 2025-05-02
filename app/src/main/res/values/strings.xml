@@ -16,4 +16,6 @@
     <string name="menu_title">Menu</string>
     <string name="Loading">Loading ...</string>
     <string name="cancel">Cancel</string>
+    <string name="profile_heading">Profile</string>
+    <string name="steps_heading">Steps Around the Park</string>
 </resources>

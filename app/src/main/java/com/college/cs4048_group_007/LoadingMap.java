@@ -57,27 +57,22 @@ public class LoadingMap extends AppCompatActivity {
             Thread loadBitmapsThread = new Thread(() -> {
                 loadBitmaps(getApplicationContext());
                 Log.i(LOADING_ACTIVITY, "Bitmaps Loaded");
-            });
 
+                // Update progress bar
+                progressBar.setProgress(100);
+
+                // Transition to MapActivity
+                Intent nextIntent = new Intent(this, MapActivity.class);
+                String userType = intent.getStringExtra("userType");
+                nextIntent.putExtra("userType", userType);
+                startActivity(nextIntent);
+            });
 
             // Start both threads
             loadBitmapsThread.start();
 
-            // Wait for both threads to complete before proceeding
-            try {
-                loadBitmapsThread.join();
-            } catch (InterruptedException e) {
-                Log.e(LOADING_ACTIVITY, "Error joining threads: " + e.getMessage());
-            }
 
-            // Update progress bar
-            progressBar.setProgress(100);
 
-            // Transition to MapActivity
-            Intent nextIntent = new Intent(this, MapActivity.class);
-            String userType = intent.getStringExtra("userType");
-            nextIntent.putExtra("userType", userType);
-            startActivity(nextIntent);
         } else {
             TextView loadingText = findViewById(R.id.loading_text);
             loadingText.setText("You have navigated to this activity from somewhere unexpected");
@@ -106,8 +101,8 @@ public class LoadingMap extends AppCompatActivity {
                 // Scale Bitmap
                 mapPOI = Bitmap.createScaledBitmap(mapPOI, 3126, 2274, true);
 
-//                String message = format("Loading Bitmap from file %s in assets/myImages", files[i].substring(0, files[i].indexOf(".")));
-//                Log.i(LOADING_ACTIVITY, message);
+                String message = format("Loading Bitmap from file %s in assets/myImages", files[i].substring(0, files[i].indexOf(".")));
+                Log.i(LOADING_ACTIVITY, message);
                 mapPOIs.put(files[i].substring(0, files[i].indexOf(".")), mapPOI);
                 inputStream.close();
 

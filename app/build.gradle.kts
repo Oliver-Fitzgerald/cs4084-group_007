@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.navigation.ui)
     val fragment_version = "1.8.6"
 
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.fragment:fragment:$fragment_version")
     implementation(libs.appcompat)
     implementation(libs.material)

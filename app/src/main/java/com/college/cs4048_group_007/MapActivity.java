@@ -110,7 +110,7 @@ public class MapActivity extends AppCompatActivity {
         });
         mapPOIs = LoadingMap.mapPOIs;
 
-        this.loadGraphAndPathFinder(getApplicationContext());
+        //this.loadGraphAndPathFinder(getApplicationContext());
 
 
 
@@ -212,7 +212,8 @@ public class MapActivity extends AppCompatActivity {
         super.onPause();
         Log.i(MAP_ACTIVITY, "onPaues() called");
 
-        currentPopUp[0].setVisibility(View.GONE);
+        if (popUpActive[0])
+            currentPopUp[0].setVisibility(View.GONE);
         popUpActive[0] = false;
         currentPopUp[0] = null;
 
