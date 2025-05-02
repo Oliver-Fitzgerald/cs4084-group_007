@@ -41,16 +41,22 @@ import com.college.cs4048_group_007.data.PoiRepository;
 import com.college.cs4048_group_007.data.RidePoi;
 import com.college.cs4048_group_007.data.RideRepository;
 import com.college.cs4048_group_007.fragments.Menu;
+import com.college.cs4048_group_007.pathing.GraphManager;
 import com.college.cs4048_group_007.pathing.POI;
+import com.college.cs4048_group_007.pathing.PathFinder;
+import com.college.cs4048_group_007.pathing.PathGraph;
 import com.college.cs4048_group_007.popup.ButtonPopupComponent;
 import com.college.cs4048_group_007.popup.DescriptionPopupComponent;
+import com.college.cs4048_group_007.popup.PathingPopupComponent;
 import com.college.cs4048_group_007.popup.Popup;
 import com.college.cs4048_group_007.viewmodel.PoiViewModel;
 import com.college.cs4048_group_007.viewmodel.PoiViewModelFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
@@ -70,6 +76,7 @@ public class MapActivity extends AppCompatActivity {
     private static String loadBitmapThreadMessage;
     private String userType = "null";
     private int currentPOI ;
+    private GraphManager graphManager;
 
 
     @Override
@@ -91,8 +98,7 @@ public class MapActivity extends AppCompatActivity {
             AppDatabase.insertTestData(db);
         });
 
-
-        //Menu Button Listner
+        //Menu Button Listener
         ImageButton menuButton = findViewById(R.id.menu_button);
         menuButton.setOnClickListener(v -> {
             Log.i(MAP_ACTIVITY,"Menu Button Clicked");
@@ -103,6 +109,8 @@ public class MapActivity extends AppCompatActivity {
                     .commit();
         });
         mapPOIs = LoadingMap.mapPOIs;
+
+        this.loadGraphAndPathFinder(getApplicationContext());
     }
 
     final boolean[] popUpActive = {false};
@@ -270,6 +278,14 @@ public class MapActivity extends AppCompatActivity {
                 .setBase(R.layout.rollercoaster_base)
                 .addComponent(new DescriptionPopupComponent(context)) // Popup POI Basic Info
                 .addComponent(buttonPopupComponent) // Popup Shop Button
+                .addComponent(
+                        new PathingPopupComponent(
+                                context,
+                                graphManager.getPathGraph(),
+                                graphManager.getPathFinder(attractName),
+                                findViewById(R.id.path_frame_layout)
+                        )
+                )
                 .build();
 
         //DB DAO
@@ -370,5 +386,37 @@ public class MapActivity extends AppCompatActivity {
 
         popupView.setVisibility(View.VISIBLE);
         return popupView;
+    }
+
+    /**
+     * loadGraphAndPathFinder
+     *
+     * @param context the context used to access application resources
+     * Loads the PathGraph and initializes the PathFinder.
+     * The GraphManager singleton is updated with the loaded graph and pathfinder.
+     */
+    public void loadGraphAndPathFinder(Context context) {
+        try {
+            String[] attractions = mapPOIs.keySet().toArray(new String[0]);
+
+                    // Load the graph
+            PathGraph pathGraph = new PathGraph(context, R.raw.paths);
+
+            Map<String, PathFinder> pathFinders = new HashMap<String, PathFinder>();
+
+            // Initialize the pathfinder
+            for(String attraction : attractions) {
+                pathFinders.put(attraction, pathGraph.createPathFinder(attraction));
+            }
+
+            // Update the GraphManager singleton
+            graphManager = GraphManager.getInstance(context);
+            graphManager.setPathGraph(pathGraph);
+            graphManager.setPathFinders(pathFinders);
+
+            Log.i(MAP_ACTIVITY, "Graph and PathFinder initialized successfully");
+        } catch (Exception e) {
+            Log.e(MAP_ACTIVITY, "Error loading graph or pathfinder: " + e.getMessage());
+        }
     }
 }

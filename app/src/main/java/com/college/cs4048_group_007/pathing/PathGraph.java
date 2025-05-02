@@ -27,9 +27,15 @@ public class PathGraph {
             String jsonString = new Scanner(inputStream).useDelimiter("\\A").next();
 
             Gson gson = new Gson();
-            AdjacencyListData adjacencyListData = gson.fromJson(jsonString, AdjacencyListData.class);
+            AdjacencyListData adjacencyListData = new AdjacencyListData();
+            try {
+                adjacencyListData = gson.fromJson(jsonString, AdjacencyListData.class);
+            } catch (Error e){
+                Log.e("PATHING", e.getMessage());
+            }
 
-            for (Map.Entry<String, List<EdgeData>> entry : adjacencyListData.adjacencyList.entrySet()) {
+
+            for (Map.Entry<String, List<EdgeData>> entry : adjacencyListData.adjacency_list.entrySet()) {
                 String fromNode = entry.getKey();
                 for (EdgeData edgeData : entry.getValue()) {
                     addEdge(fromNode, edgeData.to, edgeData.weight, edgeData.image);
@@ -57,7 +63,7 @@ public class PathGraph {
     }
 
     static class AdjacencyListData {
-        Map<String, List<EdgeData>> adjacencyList;
+        Map<String, List<EdgeData>> adjacency_list;
     }
 
     static class EdgeData {

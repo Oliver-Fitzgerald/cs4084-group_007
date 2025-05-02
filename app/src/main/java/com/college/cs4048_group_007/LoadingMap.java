@@ -27,8 +27,8 @@ import java.util.Map;
 
 public class LoadingMap extends AppCompatActivity {
     final private static String LOADING_ACTIVITY = "Loading";
-    public static Map<String, Bitmap> mapPOIs = new HashMap<>();//Clickable Regions
-    private static ProgressBar progressBar ;
+    public static Map<String, Bitmap> mapPOIs = new HashMap<>(); // Clickable Regions
+    private static ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,21 +53,34 @@ public class LoadingMap extends AppCompatActivity {
         String intentPurpose = intent.getStringExtra("load");
 
         if (intentPurpose != null && intentPurpose.equals("bitmaps")) {
-            //Pre-Generate BitMaps in a separate thread to prevent slowing the main UI thread
-            Thread loadBitmaps = new Thread(() -> {
+            // Pre-Generate Bitmaps and Load Graph/PathFinder in separate threads
+            Thread loadBitmapsThread = new Thread(() -> {
                 loadBitmaps(getApplicationContext());
-                progressBar.setProgress(100);
                 Log.i(LOADING_ACTIVITY, "Bitmaps Loaded");
-                Intent nextIntent = new Intent(this, MapActivity.class);
-                String userType  = intent.getStringExtra("userType");
-                System.out.println("Loading user Type: " + userType);
-                nextIntent.putExtra("userType",userType);
-                startActivity(nextIntent);
             });
-            loadBitmaps.start();
+
+
+            // Start both threads
+            loadBitmapsThread.start();
+
+            // Wait for both threads to complete before proceeding
+            try {
+                loadBitmapsThread.join();
+            } catch (InterruptedException e) {
+                Log.e(LOADING_ACTIVITY, "Error joining threads: " + e.getMessage());
+            }
+
+            // Update progress bar
+            progressBar.setProgress(100);
+
+            // Transition to MapActivity
+            Intent nextIntent = new Intent(this, MapActivity.class);
+            String userType = intent.getStringExtra("userType");
+            nextIntent.putExtra("userType", userType);
+            startActivity(nextIntent);
         } else {
             TextView loadingText = findViewById(R.id.loading_text);
-            loadingText.setText("You have navigated to this actibity from somewhere unexpected");
+            loadingText.setText("You have navigated to this activity from somewhere unexpected");
         }
     }
 
@@ -79,38 +92,27 @@ public class LoadingMap extends AppCompatActivity {
      * The bitmaps are scaled to fit the screen height while preserving their original
      * aspect ratio.
      * These scaled bitmaps are used to define clickable areas on the screen.
-     *
-     *                !!! Warning !!!
-     * This method should be ran in a separate thread from the main UI thread to prevent
-     * slowing the main UI thread.
-     * This also means that process dependant on these bitmaps are blocked until it's completion.
-     * This should be improved.
      */
     public void loadBitmaps(Context context) {
         try {
-            //Get all images in assets
             AssetManager assetManager = context.getAssets();
             String[] files = assetManager.list("myImages");
             assert files != null;
 
-            InputStream inputStream = null;
             for (int i = 0; i < files.length; i++) {
-                //Convert all images to Bitmaps
-                inputStream = assetManager.open("myImages/" + files[i]);
+                InputStream inputStream = assetManager.open("myImages/" + files[i]);
                 Bitmap mapPOI = BitmapFactory.decodeStream(inputStream);
 
-                //Scale Bitmap
+                // Scale Bitmap
                 mapPOI = Bitmap.createScaledBitmap(mapPOI, 3126, 2274, true);
 
-                String message = format("Loading Bitmap from file %s in assets/myImages", files[i].substring(0, files[i].indexOf(".")));
-                Log.i(LOADING_ACTIVITY, message);
+//                String message = format("Loading Bitmap from file %s in assets/myImages", files[i].substring(0, files[i].indexOf(".")));
+//                Log.i(LOADING_ACTIVITY, message);
                 mapPOIs.put(files[i].substring(0, files[i].indexOf(".")), mapPOI);
                 inputStream.close();
 
-                progressBar.setProgress( (int) Math.round((i * 1.667))); //Division is to slow
+                progressBar.setProgress((int) Math.round(i * 1.667)); // Division is to slow
             }
-
-
         } catch (IOException exception) {
             String message = format("Error reading image assets from assets/myImages\n%s", exception.getMessage());
             Log.e(LOADING_ACTIVITY, message);

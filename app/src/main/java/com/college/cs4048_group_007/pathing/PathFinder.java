@@ -1,6 +1,8 @@
 package com.college.cs4048_group_007.pathing;
 
 
+import android.util.Log;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -9,11 +11,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class PathFinder {
+public class PathFinder {
     private Map<String, Double> distances;
     private Map<String, String> previousNodes;
+    private PathGraph graph;
 
     public PathFinder(PathGraph graph, String startNode) {
+        this.graph = graph;
         distances = new HashMap<>();
         previousNodes = new HashMap<>();
 
@@ -48,16 +52,32 @@ class PathFinder {
     }
 
     public List<String> getShortestPath(String from, String to) {
-        List<String> path = new ArrayList<>();
+        Log.i("PATHFINDER", "FROM: " + from + ", TO: " + to);
+
+        List<String> imagePaths = new ArrayList<>();
         String currentNode = to;
 
+
         while (currentNode != null) {
-            path.add(currentNode);
-            currentNode = previousNodes.get(currentNode);
+            String previousNode = previousNodes.get(currentNode);
+            if (previousNode == null) {
+                break;
+            }
+
+
+            List<PathGraph.Edge> neighbors = graph.getNeighbors(previousNode);
+            for (PathGraph.Edge edge : neighbors) {
+                if (edge.to.equals(currentNode)) {
+                    imagePaths.add(edge.imagePath); // Add the image path to the list
+                    break;
+                }
+            }
+
+            currentNode = previousNode; // Move to the previous node
         }
 
-        Collections.reverse(path);
-        return path;
+        Collections.reverse(imagePaths); // Reverse to get the correct order
+        return imagePaths; // Return the list of image paths
     }
 
     static class NodeDistance {
