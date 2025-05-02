@@ -39,3 +39,4 @@ public class Poi {
         this.type = type;
     }
 }
+//TestDatabase

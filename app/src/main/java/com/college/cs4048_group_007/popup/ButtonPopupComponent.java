@@ -1,6 +1,7 @@
 package com.college.cs4048_group_007.popup;
 
 import android.content.Context;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class ButtonPopupComponent extends PopupComponent {
 
     private TextView buttonView;
+    private Button myButton;
 
     /**
      * Constructs a {@code DescriptionPopupComponent} with the specified layout resource.
@@ -22,6 +24,10 @@ public class ButtonPopupComponent extends PopupComponent {
     public ButtonPopupComponent(Context context, int layoutResource){
         super(context, layoutResource);
         this.buttonView = this.getComponentView().findViewById(R.id.popup_button);
+        this.myButton = this.getComponentView().findViewById(R.id.popup_button);
+    }
+    public void setText(String text) {
+        myButton.setText(text);
     }
 
     /**
@@ -57,5 +63,8 @@ public class ButtonPopupComponent extends PopupComponent {
         return "button";
     }
 
+    public Button getMyButton() {
+        return myButton;
+    }
 
 }

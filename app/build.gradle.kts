@@ -35,6 +35,11 @@ android {
 }
 
 dependencies {
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+    val fragment_version = "1.8.6"
+
+    implementation("androidx.fragment:fragment:$fragment_version")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

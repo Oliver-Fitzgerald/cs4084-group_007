@@ -3,32 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rollercoaster_layout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:textAlignment="center"
+    android:gravity="center"
     android:background="@drawable/rounded_border"
     android:radius="16dp">
 
     <TextView
         android:id="@+id/popup_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text=""
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="200dp"
-        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:textAlignment="center"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="77dp" />
+        android:textAlignment="center"
+        android:gravity="center"
+        android:orientation="vertical" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

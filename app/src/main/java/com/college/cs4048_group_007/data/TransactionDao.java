@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import com.college.cs4048_group_007.entities.Poi;
 import com.college.cs4048_group_007.entities.Ride;
+import com.college.cs4048_group_007.entities.SaleItem;
 import com.college.cs4048_group_007.entities.Transaction;
 
 import java.util.List;
@@ -17,6 +18,9 @@ import java.util.List;
 public interface TransactionDao {
     @Insert
     Long insert(Transaction transaction);
+
+    @Query("SELECT * FROM `transaction`")
+    LiveData<List<Transaction>> getAllTransactionItem();
 
     @Query("SELECT * FROM `transaction`")
     LiveData<List<Transaction>> getAllRide();

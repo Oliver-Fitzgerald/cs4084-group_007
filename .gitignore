@@ -9,6 +9,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .idea/.name
+.idea/*
 .idea/misc.xml
 .idea/modules/
 *.log

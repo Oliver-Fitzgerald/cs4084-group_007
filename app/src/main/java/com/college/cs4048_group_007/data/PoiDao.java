@@ -31,7 +31,7 @@ public interface PoiDao {
     @Query("SELECT poi_id FROM poi WHERE name = :name")
     LiveData<Integer> getIdByName(String name);
 
-    @Query("SELECT ride.ride_id, poi.poi_id, poi.name, poi.description, poi.open_time, poi.close_time, poi.type, ride.rating " +
+    @Query("SELECT ride.ride_id, poi.poi_id, poi.name, poi.description, poi.open_time, poi.close_time, poi.type, ride.rating, ride.queue_length " +
             "FROM poi inner join ride on poi.poi_id = ride.poi_id WHERE poi.poi_id = :poiId")
     LiveData<RidePoi> getRidePoiById(int poiId);
     @Update

@@ -1,20 +1,28 @@
 package com.college.cs4048_group_007;
 
+import static com.college.cs4048_group_007.data.AppDatabase.insertTestData;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.LiveData;
 
+import com.college.cs4048_group_007.data.AppDatabase;
 import com.college.cs4048_group_007.entities.Poi;
 import com.college.cs4048_group_007.entities.SaleItem;
 import com.college.cs4048_group_007.entities.Transaction;
@@ -24,26 +32,27 @@ import com.college.cs4048_group_007.data.PoiRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.Executors;
 
 
 public class ShopActivity extends AppCompatActivity {
-    String item1Name = "CotonCandy";
-    String item2Name = "Default Ring";
-    String item3Name = "Ticket";
 
-    float item1Price = 30;
-    float item2Price = 40;
-
-    float item3Price = 5;
     TransactionRepository Transactiondb;
     SaleItemRepository itemsDb;
-    boolean ride = true;
     PoiRepository poiDb;
     boolean ordered = false;
     ArrayList<String> orderedItems = new ArrayList<String>();
     int orderNumber;
+    int id = 1;
+    List<Integer> buttonIds = new ArrayList<>();
+    List<Integer> itemIds = new ArrayList<>();
+    List<SaleItem> items = new ArrayList<>();
+    String name = "";
+    Transaction transaction;
 
-    //int id = 1;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,115 +66,90 @@ public class ShopActivity extends AppCompatActivity {
         Transactiondb = new TransactionRepository(getApplication());
         itemsDb = new SaleItemRepository(getApplication());
         this.poiDb = new PoiRepository(getApplication());
-
-        rideOrShop();
-        setNames();
+        /*Executors.newSingleThreadExecutor().execute(() -> {
+            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        });*/
+        //rideOrShop();
         back();
+        getProductIds(id);
 
 
 
-        Button item1 = findViewById(R.id.butItem1);
-        Button item2 = findViewById(R.id.butitem2);
-        Button item3 = findViewById(R.id.butItem3);
-
-        item1.setOnClickListener( v -> {
-            order(1);
-        });
-        item2.setOnClickListener( v -> {
-            order(2);
-        });
-        item3.setOnClickListener( v -> {
-            order(3);
-        });
 
         Button order = findViewById(R.id.order);
-        TextView orderID = findViewById(R.id.transId);
-
+        order.setVisibility(View.GONE);
         order.setOnClickListener(v ->{
-            //orderCompleted();
-            if(!ordered){
-                item1.setVisibility(View.GONE);
-                item2.setVisibility(View.GONE);
-                item3.setVisibility(View.GONE);
-                order.setText("Cancel");
-                orderID.setText("Order Number ; " + orderNumber);
-                this.ordered = true;
-            }else{
-                item1.setVisibility(View.VISIBLE);
-                if(!ride) {
-                    item2.setVisibility(View.VISIBLE);
-                    item3.setVisibility(View.VISIBLE);
-                }
-                order.setText("Order");
-                orderID.setText("");
-                this.ordered = false;
-            }
+
+            orderCompleted();
+        });
+
+        Button cancel = findViewById(R.id.cancel);
+        cancel.setVisibility(View.GONE);
+        cancel.setOnClickListener(v ->{
+
+            orderCancel();
         });
     }
-    void rideOrShop(){
-        /*LiveData<Poi> poiLive= poiDb.getPoiById(id);
-        Poi poi = poiLive.getValue();
-        if(!poi.type.equals("shop")){
-            this.ride = true;
-        }else{
-            this.ride= true;
-        }*/
 
-
-    }
+    // getProduct
     ArrayList<Integer> getProductIds(int id){
 
-        LiveData<Poi> poi= poiDb.getPoiById(id);
+        /*LiveData<Poi> poi= poiDb.getPoiById(id);
+        String test = poi.toString();
+        if(!poi.isInitialized()){
+            Log.i("Test", test);
+        }
+        ArrayList<Integer> productIds = new ArrayList<Integer>();
         List<Poi> poisList = (List<Poi>) poi.getValue();
-        LiveData<List<SaleItem>> saleItemsLiveData= itemsDb.getAllSaleItem();
-        List<SaleItem> saleItemsList = saleItemsLiveData.getValue();
+        String test2 = String.valueOf(poisList.size());
+        Log.i("Test", test2);*/
         ArrayList<Integer> productIds = new ArrayList<Integer>();
 
-        for(int i = 0; i < saleItemsList.size(); i++){
-            int idSaleItem = saleItemsList.get(i).poiId;
-            if(idSaleItem == id){
-                productIds.add(idSaleItem);
+        LiveData<List<SaleItem>> saleItemsLiveData= itemsDb.getAllSaleItem();
+        itemsDb.getAllSaleItem().observe(this, saleItemsList -> {
+
+            if(saleItemsList != null && !saleItemsList.isEmpty()){
+
+                for(int i = 0; i < Objects.requireNonNull(saleItemsList).size(); i++){
+                    this.items.add(saleItemsList.get(i));
+                    // the sale item id
+                    int idSaleItem = saleItemsList.get(i).productId;
+                    int poiIdSaleItem = saleItemsList.get(i).poiId;
+
+                    if(poiIdSaleItem == id){
+
+                        // adds it of it has the same poi is the same
+                        productIds.add(idSaleItem);
+                    }
+                }
+                for (int i = 0; i < productIds.size(); i++) {
+
+
+                    for(int j = 0; j < items.size(); j++){
+
+
+
+
+                        if(items.get(j).productId == i+1){
+
+                            name = items.get(j).name;
+                            createButtons(name,items.get(i).description, i);
+                        }
+                    }
+                }
+            }else{
+                Log.i("Test", "doesnt get an item");
             }
-        }
+        });
+
+
+
+        this.itemIds = productIds;
         return productIds;
     }
-    void getNames(ArrayList<Integer> productIds){
-        ArrayList<String> names = new ArrayList<String>();
 
-        for(int i = 0; i < productIds.size();i++){
-            LiveData<SaleItem> saleItemsLiveData= itemsDb.getSaleItemById(productIds.get(i));
-            SaleItem saleItem = saleItemsLiveData.getValue();
-            assert saleItem != null;
-            names.add(saleItem.name);
-        }
-        if(ride){
-            this.item1Name = "Ticket";
 
-        }else{
-            this.item1Name = names.get(0);
-            this.item2Name = names.get(1);
-            this.item3Name = names.get(2);
-        }
-    }
 
-    void getPrices(ArrayList<Integer> productIds){
-        ArrayList<Float> prices = new ArrayList<Float>();
-
-        for(int i = 0; i < productIds.size();i++){
-            LiveData<SaleItem> saleItemsLiveData= itemsDb.getSaleItemById(productIds.get(i));
-            SaleItem saleItem = saleItemsLiveData.getValue();
-            assert saleItem != null;
-            prices.add((saleItem.price));
-        }
-        if(ride){
-            this.item1Price = prices.get(0);
-
-        }else{
-            this.item1Price = prices.get(0);
-            this.item2Price = prices.get(1);
-            this.item3Price = prices.get(2);
-        }
-    }
     void back(){
         Button back = findViewById(R.id.back);
         back.setOnClickListener( v -> {
@@ -174,60 +158,156 @@ public class ShopActivity extends AppCompatActivity {
         });
 
     }
-    @SuppressLint("SetTextI18n")
-    void setNames(){
 
-        TextView item1 = findViewById(R.id.item1);
-        TextView item2 = findViewById(R.id.item2);
-        TextView item3 = findViewById(R.id.item3);
-        Button item2Bt = findViewById(R.id.butitem2);
-        Button item3Bt = findViewById(R.id.butItem3);
 
-        if(!ride) {
-            item1.setText(this.item1Name + " €"+ item1Price);
-            item2.setText(this.item2Name + " €"+ item2Price);
-            item3.setText(this.item3Name + " €"+ item3Price);
-            item2.setVisibility(View.VISIBLE);
-            item3.setVisibility(View.VISIBLE);
+    void createButtons(String name,String desc, int productId) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                runOnUiThread(() -> {
+                    LinearLayout layout = findViewById(R.id.linearLayoutContainer);
+                    TextView textView = new TextView(this);
+                    int textViewId = View.generateViewId();
+                    textView.setId(textViewId);
+                    String nameDesc = "Name : " + name;
+                    textView.setText(nameDesc);
+
+
+                    TextView textView2 = new TextView(this);
+                    int textViewId2 = View.generateViewId();
+                    textView2.setId(textViewId2);
+                    String thisDesc = "Description : " + desc;
+                    textView2.setText(thisDesc);
+
+
+                    Button button = new Button(this);
+                    int thisId = View.generateViewId();
+                    buttonIds.add(thisId);
+                    button.setText("Add to Order");
+
+                    button.setOnClickListener(v -> addToOrder(name, productId, thisId));
+
+                    layout.addView(textView);
+                    layout.addView(textView2);
+                    layout.addView(button);
+                    /*Button button = new Button(this);
+                    int thisId = View.generateViewId();
+                    buttonIds.add(thisId);
+                    button.setText("Add to Order");
+
+                    // Set layout params
+                    ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    );
+
+                    params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
+                    params.verticalBias = 0.305f*productId;
+                    params.horizontalBias = 0.671f;
+
+                    button.setLayoutParams(params);
+
+                    button.setOnClickListener(v -> {
+                        addToOrder(name, productId, thisId);
+                        Toast.makeText(this, name+"added to Order", Toast.LENGTH_SHORT).show();
+                    });
+
+                    ConstraintLayout layout = findViewById(R.id.main);
+                    layout.addView(button);
+                    buttonIds.add(button.getId());
+
+                    TextView textView = new TextView(this);
+                    int textViewId = View.generateViewId();
+                    textView.setId(textViewId);
+                    textView.setText(name);
+
+                    ConstraintLayout.LayoutParams textParams = new ConstraintLayout.LayoutParams(
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                            ConstraintLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    textParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+                    textParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+
+
+                    textParams.endToStart = buttonIds.get(buttonIds.size() - 1);
+                    textParams.verticalBias = 0.305f*productId;
+                    textParams.setMarginEnd(16);
+
+                    textView.setLayoutParams(textParams);
+                    layout.addView(textView);*/
+                });
+            }).start();
         }
-        else{
-            item1.setText(this.item1Name + item1Price);
-            item2.setText("");
-            item3.setText("");
-            item2Bt.setVisibility(View.GONE);
-            item3Bt.setVisibility(View.GONE);
-        }
+
+
+    void addToOrder(String name, int productId, int thisId){
+
+
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            runOnUiThread(() -> {
+
+                for(int buttins : this.buttonIds){
+                    Button myButton = findViewById(buttins);
+                    if (myButton != null) myButton.setVisibility(View.GONE);
+
+                }
+                Button order = findViewById(R.id.order);
+                order.setEnabled(true);
+                order.setVisibility(View.VISIBLE);
+                Toast.makeText(this, name+"added to Order", Toast.LENGTH_SHORT).show();
+                this.transaction = new Transaction(productId,name);
+                Button cancel = findViewById(R.id.cancel);
+                cancel.setEnabled(true);
+                cancel.setVisibility(View.VISIBLE);
+                LinearLayout layout = findViewById(R.id.linearLayoutContainer);
+                layout.setVisibility(View.GONE);
+
+            });
+        }).start();
+
+
+
+
     }
 
-    void order(int item){
-        Toast.makeText(this, "Added to Order", Toast.LENGTH_LONG).show();
-
-        if(item == 1){
-            Transaction itemOrder = new Transaction();
-            Transactiondb.insertTransaction(itemOrder);
-            addToOrder(this.item1Name, this.item1Price);
-        }else if(item == 2){
-            Transaction itemOrder = new Transaction();
-            Transactiondb.insertTransaction(itemOrder);
-            addToOrder(this.item2Name, this.item2Price);
-        }else{
-            Transaction itemOrder = new Transaction();
-            Transactiondb.insertTransaction(itemOrder);
-            addToOrder(this.item3Name, this.item3Price);
-        }
-    }
-
-    void addToOrder(String name, float price){
-
-    }
     void orderCompleted(){
-        try {
-            wait(1000);
-            Toast.makeText(this, "Order Completed", Toast.LENGTH_LONG).show();
+        Log.i("test", String.valueOf(this.transaction.transactionId));
+        Log.i("test", String.valueOf(this.transaction.productId));
+        //Transactiondb.insertTransaction(this.transaction);
+        Button order = findViewById(R.id.order);
+        order.setEnabled(false);
+        order.setVisibility(View.GONE);
+        Button cancel = findViewById(R.id.cancel);
+        cancel.setEnabled(false);
+        cancel.setVisibility(View.GONE);
+        LinearLayout layout = findViewById(R.id.linearLayoutContainer);
+        layout.setVisibility(View.VISIBLE);
+    }
+    void orderCancel(){
+        Button order = findViewById(R.id.order);
+        order.setEnabled(false);
+        order.setVisibility(View.GONE);
+        Button cancel = findViewById(R.id.cancel);
+        cancel.setEnabled(false);
+        cancel.setVisibility(View.GONE);
+        LinearLayout layout = findViewById(R.id.linearLayoutContainer);
+        layout.setVisibility(View.VISIBLE);
 
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
