@@ -93,10 +93,15 @@ public class OrderActivity extends AppCompatActivity {
                 for (int i = 0; i<transactions.size(); i++) {
                     Log.i("Test","I :" + String.valueOf(i));
                     Transaction transaction = transactions.get(i);
+                    Log.i("Test","transaction :" + String.valueOf(transaction.productId + 1));
                     int productId = transaction.productId;
                     for(SaleItem item : items){
                         if(item.productId == productId){
-                            createButtons(item.name, "Place right now");
+                            if(true) {
+                                createButtons(item.name, "Order Number " + String.valueOf(transaction.transactionId) + " Status :" + transaction.status);
+                            }else{
+                                createFoodOrder();
+                            }
                         }
                     }
                 }
@@ -135,6 +140,9 @@ public class OrderActivity extends AppCompatActivity {
 
 
         return productIds;
+    }
+    void createFoodOrder(){
+
     }
     void createButtons(String name, String place) {
         new Thread(() -> {

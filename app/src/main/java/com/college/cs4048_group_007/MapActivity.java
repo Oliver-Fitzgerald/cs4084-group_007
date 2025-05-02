@@ -354,9 +354,13 @@ public class MapActivity extends AppCompatActivity {
         if (userType.equals("user"))
             if (popupButton != null) {
                 popupButton.setOnClickListener(v -> {
-                    Intent intent = new Intent(this, FoodwaitingActivity.class);
-    //                intent.putExtra("item_name", "burger"); // burger get from db
-                    startActivity(intent);
+
+                    Intent intent = new Intent(this, ShopActivity.class);
+                    intent.putExtra("poi_id", currentPOI);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("poi_id", currentPOI);
+                    Log.i("test", String.valueOf(currentPOI));
+                    context.startActivity(intent);
                 });
             } else {
                 Log.e(MAP_ACTIVITY, "Button is null");
