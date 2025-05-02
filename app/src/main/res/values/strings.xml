@@ -18,4 +18,6 @@
     <string name="cancel">Cancel</string>
     <string name="profile_heading">Profile</string>
     <string name="steps_heading">Steps Around the Park</string>
+    <string name="my_orders">My Orders</string>
+    <string name="confirm">Confirm</string>
 </resources>

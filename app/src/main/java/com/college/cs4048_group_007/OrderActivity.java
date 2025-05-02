@@ -165,8 +165,8 @@ public class OrderActivity extends AppCompatActivity {
                 button.setText("Progress on "+ name);
                 button.setOnClickListener( v -> {
                     Intent intent = new Intent(this, FoodwaitingActivity.class);
-                    intent.putExtra("poi_id", timer);
-                    intent.putExtra("poi_id", name);
+                    intent.putExtra("timer", timer);
+                    intent.putExtra("attraction_name", name);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 });
