@@ -7,8 +7,10 @@
 
     <Button
         android:id="@+id/popup_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAlignment="center"
         android:text="shop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

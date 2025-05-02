@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clickable="false"
+    android:focusable="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
@@ -14,6 +16,8 @@
         android:padding="0dp"
         android:layout_height="match_parent">
 
+
+        <!-- Background Map -->
         <ImageView
             android:id="@+id/map"
             android:layout_margin="0dp"
@@ -27,18 +31,20 @@
 
         <FrameLayout
             android:id="@+id/title_container"
-            android:layout_width="match_parent"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <com.college.cs4048_group_007.pathing.POI
-                poiID="wavePoolID"
-                android:id="@+id/wave_pool_text"
-                android:padding="0dp"
-                android:scaleType="fitCenter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:src="@drawable/wave_pool_title"/>
+            <!-- Menu Button -->
+            <ImageButton
+                android:id="@+id/menu_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="15dp"
+                android:src="@drawable/menu_button"
+                android:scaleType="fitXY"
+                android:background="@null"/>
 
             <!-- Popup container positioned absolutely within the FrameLayout -->
             <LinearLayout

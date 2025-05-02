@@ -25,4 +25,7 @@ public class RidePoi {
 
     @ColumnInfo(name = "rating")
     public String rating;
+
+    @ColumnInfo(name = "queue_length")
+    public String queue_length;
 }

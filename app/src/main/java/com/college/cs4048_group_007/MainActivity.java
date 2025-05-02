@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -57,8 +58,19 @@ public class MainActivity extends AppCompatActivity {
         MaterialButton myButton = findViewById(R.id.myButton);
 
         myButton.setOnClickListener(v -> {
+            //Displays loading screen until the activity passed as parameter is ready
+            /*
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
+             */
+            Intent intent = new Intent(this, LoadingMap.class);
+            intent.putExtra("load","bitmaps");
+            startActivity(intent);
+        });
+
+        Button shopButton = findViewById(R.id.btnOpenShop);
+        shopButton.setOnClickListener(v -> {
+            System.out.println("Shop button clicked`");
         });
 
     }

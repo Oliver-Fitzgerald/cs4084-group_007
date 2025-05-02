@@ -56,6 +56,7 @@ public class PoiRepository {
 
     public LiveData<RidePoi> getRidePoiById(int poiId) {
         // Room automatically runs it on a background thread because DAO returns LiveData<>
+
         return poiDao.getRidePoiById(poiId);
     }
 }
