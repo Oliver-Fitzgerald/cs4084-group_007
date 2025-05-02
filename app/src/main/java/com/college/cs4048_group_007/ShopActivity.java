@@ -44,7 +44,7 @@ public class ShopActivity extends AppCompatActivity {
     boolean ordered = false;
     ArrayList<String> orderedItems = new ArrayList<String>();
     int orderNumber;
-    int id = 1;
+    int id;
     List<Integer> buttonIds = new ArrayList<>();
     List<Integer> itemIds = new ArrayList<>();
     List<SaleItem> items = new ArrayList<>();
@@ -63,18 +63,54 @@ public class ShopActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        setupShopActivity();
+
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        resetAct();
+        setupShopActivity();
+    }
+
+    protected void onResume(){
+
+        super.onResume();
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_shops);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        resetAct();
+        setupShopActivity();
+    }
+
+    void setupShopActivity(){
+
+        int poiId = getIntent().getIntExtra("poi_id", 1);
+        Log.i("Test", "OPEN SHOP ACT");
+        Log.i("Test", "POI ID : " + String.valueOf(poiId));
+        if (poiId != 1) {
+            Log.i("Test", "POI ID : " + String.valueOf(id));
+            this.id = poiId;
+            Log.i("Test", "POI ID : " + String.valueOf(id));
+        } else {
+            this.id = 1;
+        }
         Transactiondb = new TransactionRepository(getApplication());
         itemsDb = new SaleItemRepository(getApplication());
         this.poiDb = new PoiRepository(getApplication());
-        /*Executors.newSingleThreadExecutor().execute(() -> {
+        Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        });*/
-        //rideOrShop();
+            insertTestData(db);
+        });
+        Log.i("Test", String.valueOf(id));
         back();
         getProductIds(id);
-
-
-
 
         Button order = findViewById(R.id.order);
         order.setVisibility(View.GONE);
@@ -89,6 +125,15 @@ public class ShopActivity extends AppCompatActivity {
 
             orderCancel();
         });
+    }
+    void resetAct(){
+
+        this.items.clear();
+        Button order = findViewById(R.id.order);
+        Button cancel = findViewById(R.id.cancel);
+
+        order.setVisibility(View.GONE);
+        cancel.setVisibility(View.GONE);
     }
 
     // getProduct
@@ -124,16 +169,13 @@ public class ShopActivity extends AppCompatActivity {
                 }
                 for (int i = 0; i < productIds.size(); i++) {
 
-
                     for(int j = 0; j < items.size(); j++){
-
-
 
 
                         if(items.get(j).productId == i+1){
 
                             name = items.get(j).name;
-                            createButtons(name,items.get(i).description, i);
+                            createButtons(name,items.get(i).description, i+1);
                         }
                     }
                 }
@@ -271,7 +313,7 @@ public class ShopActivity extends AppCompatActivity {
                 order.setEnabled(true);
                 order.setVisibility(View.VISIBLE);
                 Toast.makeText(this, name+"added to Order", Toast.LENGTH_SHORT).show();
-                this.transaction = new Transaction(productId,name);
+                this.transaction = new Transaction(productId,"Ready for Pickup");
                 Button cancel = findViewById(R.id.cancel);
                 cancel.setEnabled(true);
                 cancel.setVisibility(View.VISIBLE);
@@ -289,7 +331,7 @@ public class ShopActivity extends AppCompatActivity {
     void orderCompleted(){
         Log.i("test", String.valueOf(this.transaction.transactionId));
         Log.i("test", String.valueOf(this.transaction.productId));
-        //Transactiondb.insertTransaction(this.transaction);
+        Transactiondb.insertTransaction(this.transaction);
         Button order = findViewById(R.id.order);
         order.setEnabled(false);
         order.setVisibility(View.GONE);
