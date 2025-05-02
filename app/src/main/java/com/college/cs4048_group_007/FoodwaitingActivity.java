@@ -29,7 +29,7 @@ public class FoodwaitingActivity extends AppCompatActivity {
         long duration = prefs.getLong("duration", 0);
 
         if (startTime == 0 || duration == 0) {
-            long newDuration = 10_000; // 10 seconds
+            long newDuration = 10000;
             long newStartTime = System.currentTimeMillis();
 
             prefs.edit()

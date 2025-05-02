@@ -89,10 +89,6 @@ public class MainActivity extends AppCompatActivity {
             showHelpSheet();
             return true;
         }
-        if (item.getItemId() == R.id.menu_stats) {
-            showDailyStats();
-            return true;
-        }
         if (item.getItemId() == R.id.menu_toggle_theme) {
             toggleDarkMode();
             return true;
@@ -106,16 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 .inflate(R.layout.help_sheet_layout, null);
         bottomSheetDialog.setContentView(sheetView);
         bottomSheetDialog.show();
-    }
-
-    private void showDailyStats() {
-        int visitedCount = VisitedTracker.getVisitedCount(this);
-        BottomSheetDialog sheet = new BottomSheetDialog(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.daily_stats_layout, null);
-        TextView statText = view.findViewById(R.id.stat_text);
-        statText.setText("You've visited " + visitedCount + " attractions today!");
-        sheet.setContentView(view);
-        sheet.show();
     }
 
 

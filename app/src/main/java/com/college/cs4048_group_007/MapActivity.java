@@ -269,10 +269,6 @@ public class MapActivity extends AppCompatActivity {
         //Get POI Object from attraction name
         poiViewModel.getIdByName(attractName).observe(this, poiId -> {
 
-            VisitedTracker.markVisited(getApplicationContext(), String.valueOf(poiId)); // Mark this ride as visited
-            int visitedCount = VisitedTracker.getVisitedCount(getApplicationContext());
-            Toast.makeText(getApplicationContext(), "Visited " + visitedCount + " attractions!", Toast.LENGTH_SHORT).show();
-
             if (poiId != null) {
                 // Log the ID to confirm data retrieval
                 android.util.Log.d("MapActivity1", "ID fetched: " + poiId);
