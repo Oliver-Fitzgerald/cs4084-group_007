@@ -1,0 +1,361 @@
+{
+  "adjacency_list": {
+    "entrance": [
+      {"to": "iron_horse_train", "weight": 1, "image": "path1.png"},
+      {"to": "western town", "weight": 4, "image": "path2.png"},
+      {"to": "carousel", "weight":  2, "image": "path6.png"}
+    ],
+    "western_town": [
+      {"to": "miss_kittys_western_shoppe_old_tyme_photo", "weight": 1, "image": "path3.png"},
+      {"to": "yum_yum_shoppe", "weight": 2, "image": "path4.png"},
+      {"to": "canoes", "weight":  3, "image":  "path5.png"},
+      {"to": "carousel", "weight": 0.5, "image": "path7.png"},
+      {"to": "iron_horse_train", "weight": 1, "image": "path10.png"}
+    ],
+    "iron_horse_train": [
+      {"to": "entrance", "weight": 1, "image": "path1.png"},
+      {"to": "western_town", "weight": 1, "image": "path10.png"},
+      {"to": "carousel", "weight": 1, "image": "path11.png"},
+      {"to": "basgettis", "weight": 1, "image": "path12.png"}
+    ],
+    "carousel": [
+      {"to": "western_town", "weight": 1, "image": "path7.png"},
+      {"to": "iron_horse_train", "weight": 1, "image": "path11.png"},
+      {"to": "lakeside_pavilion", "weight": 1, "image": "path13.png"},
+      {"to": "jack_and_beanstalk", "weight": 0.5, "image": "path14.png"},
+      {"to": "guest_services", "weight": 0.5, "image": "path15.png"},
+      {"to": "basgettis", "weight": 0.5, "image": "path16.png"}
+    ],
+    "basgettis": [
+      {"to": "tea_cups", "weight": 1.5, "image": "path17.png"},
+      {"to": "garden_of_fables", "weight": 3, "image": "path18.png"},
+      {"to": "maxs_doggy_dog_coaster", "weight": 4, "image": "path19.png"},
+      {"to": "blue_goose", "weight": 4, "image": "path20.png"}
+    ],
+    "tea_cups": [
+      {"to": "miniature_golf", "weight": 1, "image": "path21.png"},
+      {"to": "balloons_ride", "weight": 0.5, "image": "path22.png"},
+      {"to": "circus_menagerie", "weight": 0.5, "image": "path23.png"}
+    ],
+    "miniature_golf": [
+      {"to": "tea_cups", "weight": 1, "image": "path21.png"},
+      {"to": "balloons_ride", "weight": 0.1, "image": "path24.png"}
+    ],
+    "balloons_ride": [
+      {"to": "tea_cups", "weight": 0.5, "image": "path21.png"},
+      {"to": "circus_menagerie", "weight": 0.1, "image": "path25.png"}
+    ],
+    "circus_menagerie": [
+      {"to": "kiddie_boats", "weight": 1, "image": "path26.png"},
+      {"to": "magic_ring", "weight": 0.5, "image": "path26.png"}
+    ],
+    "magic_ring": [
+      {"to": "circus_menagerie", "weight": 0.5, "image": "path26.png"},
+      {"to": "kiddie_boats", "weight": 0.5, "image": "path27.png"},
+      {"to": "catered_picnic_area", "weight": 3, "image": "path28.png"}
+    ],
+    "kiddie_boats": [
+      {"to": "circus_menagerie", "weight": 1, "image": "path26.png"},
+      {"to": "magic_ring", "weight": 0.5, "image": "path27.png"},
+      {"to": "maxs_doggy_dog_coaster", "weight": 3, "image": "path29.png"}
+    ],
+    "catered_picnic_area": [
+      {"to": "magic_ring", "weight": 3, "image": "path28.png"}
+    ],
+    "maxs_doggy_dog_coaster": [
+      {"to": "basgettis", "weight": 4, "image": "path19.png"},
+      {"to": "kiddie_boats", "weight": 3, "image": "path29.png"},
+      {"to": "garden_of_fables", "weight": 1.5, "image": "path30.png"},
+      {"to": "blue_goose", "weight": 0.5, "image": "path31.png"}
+    ],
+    "garden_of_fables": [
+      {"to": "basgettis", "weight": 3, "image": "path18.png"},
+      {"to": "maxs_doggy_dog_coaster", "weight": 1.5, "image": "path30.png"},
+      {"to": "red_baron", "weight": 1, "image": "path32.png"},
+      {"to": "kiddie_train", "weight": 1, "image": "path33.png"},
+      {"to": "jack_and_beanstalk", "weight": 2, "image": "path34.png"}
+    ],
+    "red_baron": [
+      {"to": "garden_of_fables", "weight": 1, "image": "path32.png"},
+      {"to": "kiddie_train", "weight": 0.2, "image": "path35.png"}
+    ],
+    "kiddie_train": [
+      {"to": "garden_of_fables", "weight": 1, "image": "path33.png"},
+      {"to": "red_baron", "weight": 0.2, "image": "path35.png"},
+      {"to": "jack_and_beanstalk", "weight": 1, "image": "path36.png"},
+      {"to": "fables", "weight": 1.5, "image": "path37.png  "}
+    ],
+    "jack_and_beanstalk": [
+      {"to": "garden_of_fables", "weight": 1, "image": "path34.png"},
+      {"to": "kiddie_train", "weight": 1, "image": "path36.png"},
+      {"to": "carousel", "weight": 0.5, "image": "path14.png"}
+    ],
+    "guest_services": [
+      {"to": "carousel", "weight": 0.3, "image": "path15.png"}
+    ],
+    "fables": [
+      {"to": "kiddie_train", "weight": 1.5, "image": "path37.png"},
+      {"to": "dome", "weight": 0.5, "image": "path38.png"}
+    ],
+    "lakeside_pavilion": [
+      {"to": "carousel", "weight": 1, "image": "path13.png"},
+      {"to": "dome", "weight": 0.3, "image": "path39.png"},
+      {"to": "canoes", "weight": 1, "image": "path40.png"}
+    ],
+    "dome": [
+      {"to": "fables", "weight": 0.5, "image": "path38.png"},
+      {"to": "lakeside_pavilion", "weight": 0.3, "image": "path39.png"},
+      {"to": "koa_entrance", "weight": 2.5, "image": "path43.png"}
+    ],
+    "canoes": [
+      {"to": "lakeside_pavilion", "weight": 1, "image": "path40.png"},
+      {"to": "western_town", "weight": 3, "image": "path5.png"},
+      {"to": "yum_yum_shoppe", "weight": 1.5, "image": "path41.png"}
+    ],
+    "miss_kittys_western_shoppe_old_tyme_photo": [
+      {"to": "western_town", "weight": 1, "image": "path3.png"},
+      {"to": "yum_yum_shoppe", "weight": 0.3, "image": "path42.png"}
+    ],
+    "yum_yum_shoppe": [
+      {"to": "western_shoppe", "weight": 2, "image": "path4.png"},
+      {"to": "canoes", "weight": 1.5, "image": "path41.png"},
+      {"to": "miss_kittys_western_shoppe_old_tyme_photo", "weight": 0.3, "image": "path42.png"},
+      {"to": "games", "weight": 2.5, "image": "path47.png"},
+      {"to": "waffle_tower", "weight": 2.2, "image": "path48.png"},
+      {"to": "slide", "weight": 1, "image": "path49.png"}
+    ],
+    "koa_entrance": [
+      {"to": "dome", "weight": 2.5, "image": "path43.png"},
+      {"to": "slide_1_and_2", "weight": 0.5, "image": "path44.png"}
+    ],
+    "slide_1_and_2": [
+      {"to": "koa_entrance", "weight": 0.5, "image": "path44.png"},
+      {"to": "blacksmith_pavilion", "weight": 0.5, "image": "path45.png"}
+    ],
+    "blacksmith_pavilion": [
+      {"to": "slide_1_and_2", "weight": 0.5, "image": "path45.png"},
+      {"to": "slide", "weight": 0.1, "image": "path46.png"}
+    ],
+    "slide": [
+      {"to": "blacksmith_pavilion", "weight": 0.1, "image": "path46.png"},
+      {"to": "yum_yum_shoppe", "weight": 1, "image": "path49.png"},
+      {"to": "waffle_tower", "weight": 0.3, "image": "path50.png"},
+      {"to": "dippin_dots_fat_phils", "weight": 0.4, "image": "path51.png"},
+      {"to": "devils_hole", "weight": 0.3, "image": "path52.png"}
+    ],
+    "devils_hole": [
+      {"to": "slide", "weight": 0.3, "image": "path52.png"},
+      {"to": "dippin_dots_fat_phils", "weight": 0.2, "image": "path53.png"},
+      {"to": "waffle_tower", "weight": 0.5, "image": "path54.png"}
+    ],
+    "dippin_dots_fat_phils": [
+      {"to": "slide", "weight": 0.4, "image": "path51.png"},
+      {"to": "devils_hole", "weight": 0.2, "image": "path53.png"},
+      {"to": "waffle_tower", "weight": 0.1, "image": "path55.png"},
+      {"to": "mind_warp", "weight": 0.1, "image": "path56.png"},
+      {"to": "bumper_cars", "weight": 0.2, "image": "path57.png"},
+      {"to": "silver_comet", "weight": 0.3, "image": "path58.png"}
+    ],
+    "waffle_tower": [
+      {"to": "yum_yum_slope", "weight": 2.2, "image": "path48.png"},
+      {"to": "slide", "weight": 1, "image": "path49.png"},
+      {"to": "devils_hole", "weight": 0.5, "image": "path54.png"},
+      {"to": "dippin_dots_fat_phils", "weight": 0.1, "image": "path55.png"},
+      {"to": "games", "weight": 0.3, "image": "path59.png"},
+      {"to": "mind_warp", "weight": 0.1, "image": "path60.png"}
+    ],
+    "silver_comet": [
+      {"to": "diggin_dots_fat_phils", "weight": 0.3, "image": "path58.png"},
+      {"to": "bumper_cars", "weight": 0.2, "image": "path61.png"}
+    ],
+    "mind_warp": [
+      {"to": "dippin_dots_fat_phils", "weight": 0.1, "image": "path56.png"},
+      {"to": "waffle_tower", "weight": 0.1, "image": "path60.png"},
+      {"to": "i_got_it_arcade", "weight": 0.3, "image": "path61.png"},
+      {"to": "games", "weight": 1, "image": "path62.png"},
+      {"to": "rock_n_roll", "weight": 1, "image": "path63.png"}
+    ],
+    "bumper_cars": [
+      {"to": "silver_comet", "weight": 0.2, "image": "path61.png"},
+      {"to": "dippin_dots_fat_phils", "weight": 0.2, "image": "path57.png"},
+      {"to": "i_got_it_arcade", "weight": 0.5, "image": "path64.png"}
+    ],
+    "i_got_it_arcade": [
+      {"to": "bumper_cars", "weight": 0.5, "image": "path64.png"},
+      {"to": "mind_warp", "weight": 0.3, "image": "path61.png"}
+    ],
+    "games": [
+      {"to": "yum_yum_shoppe", "weight": 2.5, "image": "path47.png"},
+      {"to": "waffle_tower", "weight": 0.3, "image": "path59.png"},
+      {"to": "mind_warp", "weight": 1, "image": "path62.png"},
+      {"to": "mega_disko", "weight": 0.5, "image": "path65.png"},
+      {"to": "rock_n_roll", "weight": 0.5, "image": "path66.png"}
+    ],
+    "rock_n_roll": [
+      {"to": "games", "weight": 0.5, "image": "path66.png"},
+      {"to": "mind_warp", "weight": 1, "image": "path63.png"},
+      {"to": "games", "weight": 0.5, "image": "path66.png"},
+      {"to": "mega_disko", "weight": 0.5, "image": "path67.png"},
+      {"to":  "oasis", "weight": 0.1, "image": "path68.png"}
+    ],
+    "mega_disko": [
+      {"to":  "games", "weight": 0.5, "image": "path65.png"},
+      {"to":  "rock_n_roll", "weight": 0.5, "image": "path67.png"},
+      {"to":  "oasis", "weight": 0.5, "image": "path69.png"},
+      {"to":  "boppers", "weight": 0.8, "image": "path70.png"},
+      {"to":  "full_tilt", "weight": 1, "image": "path71.png"}
+    ],
+    "oasis": [
+      {"to":  "rock_n_roll", "weight": 0.1, "image": "path68.png"},
+      {"to":  "mega_disko", "weight": 0.5, "image": "path69.png"},
+      {"to":  "boppers", "weight": 0.3, "image": "path72.png"},
+      {"to":  "train_station", "weight": 0.7, "image": "path73.png"},
+      {"to":  "martys_finger_lickin_chicken", "weight": 0.5, "image": "path74.png"}
+    ],
+    "train_station": [
+      {"to":  "oasis", "weight": 0.7, "image": "path73.png"},
+      {"to":  "martys_finger_lickin_chicken", "weight": 0.4, "image": "path75.png"}
+    ],
+    "martys_finger_lickin_chicken": [
+      {"to":  "oasis", "weight": 0.5, "image": "path74.png"},
+      {"to":  "train_station", "weight": 0.4, "image": "path75.png"},
+      {"to":  "rockin_tug", "weight": 0.1, "image": "path76.png"},
+      {"to":  "full_tilt", "weight": 0.2, "image": "path77.png"},
+      {"to":  "boppers", "weight": 0.1, "image": "path78.png"}
+    ],
+    "boppers": [
+      {"to":  "mega_disko", "weight": 0.8, "image": "path70.png"},
+      {"to":  "oasis", "weight": 0.3, "image": "path72.png"},
+      {"to":  "martys_finger_lickin_chicken", "weight": 0.1, "image": "path78.png"},
+      {"to":  "rockin_tug", "weight": 0.2, "image": "path79.png"},
+      {"to":  "full_tilt", "weight": 0.2, "image": "path80.png"}
+    ],
+    "rockin_tug": [
+      {"to":  "martys_finger_lickin_chicken", "weight": 0.1, "image": "path76.png"},
+      {"to":  "boppers", "weight": 0.2, "image": "path79.png"},
+      {"to":  "full_tilt", "weight": 0.1, "image": "path81.png"},
+      {"to":  "fried_dough_dippin_tots", "weight": 0.1, "image": "path82.png"},
+      {"to":  "tilt_a_whirl", "weight": 0.3, "image": "path83.png"}
+    ],
+    "fried_dough_dippin_dots": [
+      {"to":  "rockin_tug", "weight": 0.1, "image": "path82.png"},
+      {"to":  "midway_theater", "weight": 0.1, "image": "path84.png"}
+    ],
+    "tilt_a_whirl": [
+      {"to":  "rockin_tug", "weight": 0.3, "image": "path83.png"},
+      {"to":  "festival_area", "weight": 0.2, "image": "path86.png"},
+      {"to":  "grove", "weight": 0.4, "image": "path85.png"},
+      {"to":  "full_tilt", "weight": 0.4, "image": "path87.png"}
+    ],
+    "festival_area": [
+      {"to": "tilt_a_whirl", "weight": 0.2, "image": "path86.png"},
+      {"to": "midway_theater", "weight": 0.5, "image": "path88.png"},
+      {"to": "flight", "weight": 0.5, "image": "path89.png"},
+      {"to": "midway_pizza", "weight": 0.5, "image": "path90.png"}
+    ],
+    "midway_theater": [
+      {"to": "fried_dough_dippin_dots", "weight": 0.1, "image": "path84.png"},
+      {"to": "festival_area", "weight": 0.5, "image": "path90.png"},
+      {"to": "midway_pizza", "weight": 0.4, "image": "path91.png"},
+      {"to": "flight", "weight": 0.5, "image": "path92.png"}
+    ],
+    "flight": [
+      {"to": "festival_area", "weight": 0.5, "image": "path89.png"},
+      {"to": "midway_theater", "weight": 0.5, "image": "path92.png"},
+      {"to": "midway_pizza", "weight": 0.2, "image": "path93.png"}
+    ],
+    "midway_pizza": [
+      {"to": "festival_area", "weight": 0.5, "image": "path90.png"},
+      {"to": "midway_theater", "weight": 0.4, "image": "path91.png"},
+      {"to": "flight", "weight": 0.2, "image": "path93.png"},
+      {"to": "crazy_mouse", "weight": 0.3, "image": "path95.png"},
+      {"to": "antique_cars", "weight": 0.3, "image": "path94.png"}
+    ],
+    "crazy_mouse": [
+      {"to": "midway_pizza", "weight": 0.3, "image": "path95.png"},
+      {"to": "antique_cars", "weight": 0.2, "image": "path96.png"},
+      {"to": "gondola_wheel", "weight": 0.3, "image": "path97.png"}
+    ],
+    "antique_cars": [
+      {"to": "midway_pizza", "weight": 0.3, "image": "path94.png"},
+      {"to": "crazy_mouse", "weight": 0.2, "image": "path96.png"},
+      {"to": "gondola_wheel", "weight": 0.3, "image": "path98.png"}
+    ],
+    "gondola_wheel": [
+      {"to": "crazy_mouse", "weight": 0.3, "image": "path97.png"},
+      {"to": "antique_cars", "weight": 0.3, "image": "path98.png"}
+    ],
+    "grove": [
+      {"to": "tilt_a_whirl", "weight": 0.4, "image": "path85.png"},
+      {"to": "full_tilt", "weight": 0.1, "image": "path99.png"}
+    ],
+    "full_tilt": [
+      {"to": "mega_disko", "weight": 1, "image": "path71.png"},
+      {"to": "martys_finger_lickin_chicken", "weight": 0.2, "image": "path77.png"},
+      {"to": "boppers", "weight": 0.2, "image": "path_80.png"},
+      {"to": "rockin_tug", "weight": 0.1, "image": "path_81.png"},
+      {"to": "tilt_a_whirl", "weight": 0.4, "image": "path_87.png"},
+      {"to": "grove", "weight": 0.1, "image": "path99.png"},
+      {"to": "creekside", "weight": 4, "image": "path100.png"}
+    ],
+    "creekside": [
+      {"to": "full_tilt", "weight": 4, "image": "path100.png"},
+      {"to": "dinosaur_pool", "weight": 1, "image": "path101.png"},
+      {"to": "dragster_drench", "weight": 0.8, "image": "path102.png"}
+    ],
+    "dragster_drench": [
+      {"to": "creekside", "weight": 0.8, "image": "path102.png"},
+      {"to": "dinosaur_pool", "weight": 0.4, "image": "path103.png"}
+    ],
+    "dinosaur_pool": [
+      {"to": "creekside", "weight": 1, "image": "path101.png"},
+      {"to": "dragster_drench", "weight": 0.4, "image": "path103.png"},
+      {"to": "cannon_bowl", "weight": 0.4, "image": "path104.png"},
+      {"to": "water_park_store", "weight": 0.4, "image": "path105.png"},
+      {"to": "lazy_river", "weight": 0.4, "image": "path106.png"},
+      {"to": "dippin_dots_snack_bar", "weight": 0.5, "image": "path107.png"}
+    ],
+    "cannon_bowl": [
+      {"to": "dinosaur_pool", "weight": 0.4, "image": "path104.png"},
+      {"to": "water_park_store", "weight": 0.1, "image": "path108.png"},
+      {"to": "lazy_river", "weight": 0.3, "image": "path109.png"}
+    ],
+    "water_park_store": [
+      {"to": "dinosaur_pool", "weight": 0.4, "image": "path105.png"},
+      {"to": "cannon_bowl", "weight": 0.1, "image": "path108.png"},
+      {"to": "dippin_dots_snack_bar", "weight": 0.1, "image": "path110.png"},
+      {"to": "lazy_river", "weight": 0.2, "image": "path111.png"},
+      {"to": "ragin_rapids", "weight": 0.6, "image": "path112.png"}
+    ],
+    "lazy_river": [
+      {"to": "dinosaur_pool", "weight": 0.4, "image": "path106.png"},
+      {"to": "cannon_bowl", "weight": 0.3, "image": "path109.png"},
+      {"to": "water_park_store", "weight": 0.2, "image": "path111.png"},
+      {"to": "surf_hill", "weight": 0.1, "image": "path113.png"},
+      {"to": "ragin_rapids", "weight": 0.3, "image": "path114.png"},
+      {"to": "dippin_dots_snack_bar", "weight": 0.3, "image": "path115.png"}
+    ],
+    "surf_hill": [
+      {"to": "lazy_river", "weight": 0.1, "image": "path113.png"},
+      {"to": "ragin_rapids", "weight": 0.2, "image": "path116.png"}
+    ],
+    "ragin_rapids": [
+      {"to": "water_park_store", "weight": 0.6, "image": "path112.png"},
+      {"to": "ragin_rapids", "weight": 0.3, "image": "path114.png"},
+      {"to": "surf_hill", "weight": 0.2, "image": "path116.png"},
+      {"to": "dippin_dots_snack_bar", "weight": 0.4, "image": "path117.png"},
+      {"to": "wave_pool", "weight": 0.3, "image": "path118.png"}
+    ],
+    "dippin_dots_snack_bar": [
+      {"to": "dinosaur_pool", "weight": 0.5, "image": "path107.png"},
+      {"to": "water_park_store", "weight": 0.1, "image": "path110.png"},
+      {"to": "lazy_river", "weight": 0.3, "image": "path115.png"},
+      {"to": "ragin_rapids", "weight": 0.4, "image": "path117.png"},
+      {"to": "wave_pool", "weight": 0.3, "image": "path119.png"}
+    ],
+    "wave_pool": [
+      {"to": "ragin_rapids", "weight": 0.3, "image": "path118.png"},
+      {"to": "dippin_dots_snack_bar", "weight": 0.3, "image": "path119.png"}
+    ]
+  }
+}
