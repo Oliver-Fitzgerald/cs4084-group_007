@@ -1,16 +1,20 @@
 package com.college.cs4048_group_007.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.college.cs4048_group_007.MainActivity;
 import com.college.cs4048_group_007.R;
+import com.google.android.material.button.MaterialButton;
 
 public class Menu extends Fragment {
     @Override
@@ -30,6 +34,18 @@ public class Menu extends Fragment {
             @Override
             public void onClick(View view) {
                getFragmentManager().beginTransaction().remove(Menu.this).commit() ;
+            }
+        });
+
+
+        Button homeButton = view.findViewById(R.id.menu_home_button);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().remove(Menu.this).commit() ;
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }

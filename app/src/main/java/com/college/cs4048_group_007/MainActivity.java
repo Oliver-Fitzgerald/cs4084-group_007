@@ -57,15 +57,17 @@ public class MainActivity extends AppCompatActivity {
         centerTextView.setText(teamMemberNames);
 
         MaterialButton myButton = findViewById(R.id.myButton);
-
         myButton.setOnClickListener(v -> {
             //Displays loading screen until the activity passed as parameter is ready
-            /*
-            Intent intent = new Intent(this, MapActivity.class);
-            startActivity(intent);
-             */
             Intent intent = new Intent(this, LoadingMap.class);
             intent.putExtra("load","bitmaps");
+            startActivity(intent);
+        });
+
+        MaterialButton adminPannelButton = findViewById(R.id.admin_pannel);
+        adminPannelButton.setOnClickListener(v -> {
+            //Displays loading screen until the activity passed as parameter is ready
+            Intent intent = new Intent(this, AdminPanel.class);
             startActivity(intent);
         });
 
