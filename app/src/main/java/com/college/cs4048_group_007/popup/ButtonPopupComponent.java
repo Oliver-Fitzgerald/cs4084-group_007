@@ -26,6 +26,9 @@ public class ButtonPopupComponent extends PopupComponent {
         this.buttonView = this.getComponentView().findViewById(R.id.popup_button);
         this.myButton = this.getComponentView().findViewById(R.id.popup_button);
     }
+    public void setText(String text) {
+        myButton.setText(text);
+    }
 
     /**
      * Constructs a {@code DescriptionPopupComponent} using a default layout resource.

@@ -68,6 +68,8 @@ public class MapActivity extends AppCompatActivity {
     final private static Map<String, POI> textPOIs = new HashMap<>();//POI Text Regions
     private static String message;
     private static String loadBitmapThreadMessage;
+    private String userType = "null";
+    private int currentPOI ;
 
 
     @Override
@@ -82,6 +84,7 @@ public class MapActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         Executors.newSingleThreadExecutor().execute(() -> {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
@@ -110,6 +113,9 @@ public class MapActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.i(MAP_ACTIVITY, "onResume() called");
+
+        userType = getIntent().getStringExtra("userType");
+        System.out.println("USER TYPE IN MAP: " + userType);
 
         FrameLayout poiTitleContainer = findViewById(R.id.map_container);
 
@@ -252,6 +258,11 @@ public class MapActivity extends AppCompatActivity {
 
         //Create Shop Button for popup
         ButtonPopupComponent buttonPopupComponent = new ButtonPopupComponent(context, R.layout.button_popup_component);
+        System.out.println("User Type: " + userType);
+        if (userType.equals("admin"))
+            buttonPopupComponent.setText("Admin Panel");
+        else
+            buttonPopupComponent.setText("Shop");
 
         //Build Pop up
         Popup popup = new Popup.Builder()
@@ -291,6 +302,7 @@ public class MapActivity extends AppCompatActivity {
                     }
 
                     //Add Info relevant for rides only
+                    currentPOI = poiId;
                     poiViewModel.getRidePoiById(poiId).observe(this, ridePoi -> {
 
                         Log.i("TESTING","Entered Ride POI");
@@ -323,15 +335,26 @@ public class MapActivity extends AppCompatActivity {
         });
 
         Button popupButton = buttonPopupComponent.getMyButton();
-        if (popupButton != null) {
-            popupButton.setOnClickListener(v -> {
-                Intent intent = new Intent(this, FoodwaitingActivity.class);
-//                intent.putExtra("item_name", "burger"); // burger get from db
-                startActivity(intent);
-            });
-        } else {
-            Log.e(MAP_ACTIVITY, "Button is null");
-        }
+        if (userType.equals("user"))
+            if (popupButton != null) {
+                popupButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(this, FoodwaitingActivity.class);
+    //                intent.putExtra("item_name", "burger"); // burger get from db
+                    startActivity(intent);
+                });
+            } else {
+                Log.e(MAP_ACTIVITY, "Button is null");
+            }
+        else if (userType.equals("admin"))
+            if (popupButton != null) {
+                popupButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(this, AdminPanel.class);
+                    intent.putExtra("poiId", Integer.toString(currentPOI));
+                    startActivity(intent);
+                });
+            } else {
+                Log.e(MAP_ACTIVITY, "Button is null");
+            }
 
         LinearLayout popupContainer = findViewById(R.id.popup_container);
 

@@ -59,6 +59,9 @@ public class LoadingMap extends AppCompatActivity {
                 progressBar.setProgress(100);
                 Log.i(LOADING_ACTIVITY, "Bitmaps Loaded");
                 Intent nextIntent = new Intent(this, MapActivity.class);
+                String userType  = intent.getStringExtra("userType");
+                System.out.println("Loading user Type: " + userType);
+                nextIntent.putExtra("userType",userType);
                 startActivity(nextIntent);
             });
             loadBitmaps.start();
