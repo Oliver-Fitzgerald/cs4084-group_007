@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,26 +24,37 @@ public class FoodwaitingActivity extends AppCompatActivity {
         Log.d("FoodwaitingActivity", "Activity loaded");
 
         timerText = findViewById(R.id.timer);
-        countDownTimer = new CountDownTimer(10_000, 1_000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
+        SharedPreferences prefs = getSharedPreferences("food_timer", MODE_PRIVATE);
+        long startTime = prefs.getLong("start_time", 0);
+        long duration = prefs.getLong("duration", 0);
 
-                // to do: insert into transaction table (status = "waiting")
-                int seconds = (int) millisUntilFinished / 1000;
-                String formatted = String.format("00 : 00 : %02d", seconds);
-                timerText.setText(formatted);
-            }
+        if (startTime == 0 || duration == 0) {
+            long newDuration = 10_000; // 10 seconds
+            long newStartTime = System.currentTimeMillis();
 
-            @Override
-            public void onFinish() {
+            prefs.edit()
+                    .putLong("start_time", newStartTime)
+                    .putLong("duration", newDuration)
+                    .apply();
+
+            startTimer(newDuration);
+            Log.d("DEBUG", "Started new timer");
+        } else {
+            // Timer existed — check if it's still running
+            long now = System.currentTimeMillis();
+            long elapsed = now - startTime;
+            long remaining = duration - elapsed;
+
+            if (remaining > 0) {
+                startTimer(remaining);
+                Log.d("DEBUG", "Resuming timer: " + remaining);
+            } else {
                 timerText.setText("00 : 00 : 00");
-                Toast.makeText(FoodwaitingActivity.this, "Your food is ready!", Toast.LENGTH_SHORT).show();
-                // to do: insert into transaction table (status = "done")
-
+                Toast.makeText(getApplicationContext(), "Your food has already ready!", Toast.LENGTH_SHORT).show();
+                Log.d("DEBUG", "Timer expired — not restarting.");
             }
-        };
+        }
 
-        countDownTimer.start();
         Button backButton = findViewById(R.id.back);
         if (backButton != null) {
             Log.d("DEBUG", "Back button found");
@@ -55,5 +67,24 @@ public class FoodwaitingActivity extends AppCompatActivity {
         }
     }
 
+    private void startTimer(long timeInMillis) {
+        // insert to database (status = "preparing")
 
+
+        countDownTimer = new CountDownTimer(timeInMillis, 1000) {
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000);
+                String formatted = String.format("00 : 00 : %02d", seconds);
+                timerText.setText(formatted);
+            }
+
+            public void onFinish() {
+                timerText.setText("00 : 00 : 00");
+                Toast.makeText(getApplicationContext(), "Your food is ready!", Toast.LENGTH_SHORT).show();
+                // insert to database (status = "done")
+
+            }
+        };
+        countDownTimer.start();
+    }
 }

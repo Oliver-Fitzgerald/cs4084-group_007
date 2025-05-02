@@ -32,4 +32,14 @@ public class SaleItem {
     public String description;
     @ColumnInfo(name = "timer")
     public int timer;
+
+    public SaleItem () {};
+
+    public SaleItem (int poiId, float price, String name, String description, int timer) {
+        this.poiId = poiId;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+        this.timer = timer;
+    }
 }
