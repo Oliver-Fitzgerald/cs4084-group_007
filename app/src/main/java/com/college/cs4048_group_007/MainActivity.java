@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -56,11 +57,24 @@ public class MainActivity extends ModeChangingActivity {
         centerTextView.setText(teamMemberNames);
 
         MaterialButton myButton = findViewById(R.id.myButton);
-
         myButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MapActivity.class);
+            //Displays loading screen until the activity passed as parameter is ready
+            Intent intent = new Intent(this, LoadingMap.class);
+            intent.putExtra("load","bitmaps");
+            intent.putExtra("userType","user");
             startActivity(intent);
         });
+
+        MaterialButton adminPannelButton = findViewById(R.id.admin_pannel);
+        adminPannelButton.setOnClickListener(v -> {
+            //Displays loading screen until the activity passed as parameter is ready
+            Intent intent = new Intent(this, LoadingMap.class);
+            intent.putExtra("load","bitmaps");
+            intent.putExtra("userType","admin");
+            startActivity(intent);
+        });
+
+
 
     }
 <<<<<<< Updated upstream
@@ -76,10 +90,6 @@ public class MainActivity extends ModeChangingActivity {
             showHelpSheet();
             return true;
         }
-        if (item.getItemId() == R.id.menu_stats) {
-            showDailyStats();
-            return true;
-        }
         if (item.getItemId() == R.id.menu_toggle_theme) {
             toggleDarkMode();
             return true;
@@ -93,16 +103,6 @@ public class MainActivity extends ModeChangingActivity {
                 .inflate(R.layout.help_sheet_layout, null);
         bottomSheetDialog.setContentView(sheetView);
         bottomSheetDialog.show();
-    }
-
-    private void showDailyStats() {
-        int visitedCount = VisitedTracker.getVisitedCount(this);
-        BottomSheetDialog sheet = new BottomSheetDialog(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.daily_stats_layout, null);
-        TextView statText = view.findViewById(R.id.stat_text);
-        statText.setText("You've visited " + visitedCount + " attractions today!");
-        sheet.setContentView(view);
-        sheet.show();
     }
 
 

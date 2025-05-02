@@ -19,6 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "cs4048-group_007"
+rootProject.name = "cs4048_group_007" // Replace with your project name
 include(":app")
- 

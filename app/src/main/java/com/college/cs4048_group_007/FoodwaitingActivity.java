@@ -27,23 +27,19 @@ public class FoodwaitingActivity extends AppCompatActivity {
         Log.d("FoodwaitingActivity", "Activity loaded");
 
         String attractionName = getIntent().getStringExtra("attraction_name");
-//        long timer = getIntent().getLongExtra("timer", 10000);
-//        String foodKey = "food_" + attractionName;
+        long timer = getIntent().getLongExtra("timer", 10000);
+        String foodKey = "food_" + attractionName;
 
         timerText = findViewById(R.id.timer);
         SharedPreferences prefs = getSharedPreferences("food_timer", MODE_PRIVATE);
-//        long startTime = prefs.getLong("start_time" + foodKey, 0);
-//        long duration = prefs.getLong("duration" + foodKey, 0);
-        long startTime = prefs.getLong("start_time", 0);
-        long duration = prefs.getLong("duration", 0);
+        long startTime = prefs.getLong("start_time" + foodKey, 0);
+        long duration = prefs.getLong("duration" + foodKey, 0);
 
         if (startTime == 0 || duration == 0) {
-<<<<<<< Updated upstream
-            long newDuration = 10_000; // 10 seconds
-=======
-//            long newDuration = timer;
-            long newDuration = 10000;
->>>>>>> Stashed changes
+
+            long newDuration = timer;
+
+
             long newStartTime = System.currentTimeMillis();
 
             prefs.edit()

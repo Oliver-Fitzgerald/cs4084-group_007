@@ -9,6 +9,7 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .idea/.name
+.idea/*
 .idea/misc.xml
 .idea/modules/
 *.log
@@ -41,3 +42,6 @@ gradle-wrapper.properties
 # Temporary or cache files
 .idea/caches
 
+
+# Ignore Gradle build output directory
+build

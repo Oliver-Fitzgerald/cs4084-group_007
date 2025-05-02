@@ -16,4 +16,13 @@ public class Transaction {
     public String type;
     @ColumnInfo(name = "status")
     public String status;
+
+    public Transaction(){
+
+    }
+    public Transaction(int product_id, String status){
+        this.productId = product_id;
+        this.status = status;
+    }
+
 }
